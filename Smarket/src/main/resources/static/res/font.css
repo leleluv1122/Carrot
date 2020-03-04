@@ -1,0 +1,46 @@
+body {
+	font-family: 'Cute Font', cursive;
+}
+ul li{
+	list-style-type:none;
+	float:left;
+}
+h1 {
+	font-family: 'Cute Font', cursive;
+}
+input.form-control.w100 {
+	width: 100px;
+}
+
+input.form-control.w200 {
+	width: 200px;
+}
+
+input.form-control.w2h1 {
+	width: 200px;
+	height: 100px;
+}
+
+input.form-control.w300 {
+	width: 300px;
+}
+
+input.form-control.w400 {
+	width: 400px;
+}
+
+select.form-control.w100 {
+	width: 100px;
+}
+
+select.form-control.w200 {
+	width: 200px;
+}
+
+select.form-control.w300 {
+	width: 300px;
+}
+
+select.form-control.w400 {
+	width: 400px;
+}

@@ -1,0 +1,75 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/security/tags"
+	prefix="sec"%>
+<c:url var="R" value="/" />
+<!DOCTYPE>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link
+	href="https://stackpath.bootstrapcdn.com/bootswatch/4.4.1/minty/bootstrap.min.css"
+	rel="stylesheet" media="screen">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link
+	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	rel="stylesheet" media="screen">
+<link
+	href="https://fonts.googleapis.com/css?family=Cute+Font|Poor+Story&display=swap&subset=korean"
+	rel="stylesheet">
+<link rel="stylesheet" href="${R}res/font.css">
+<style>
+</style>
+</head>
+<body>
+	<div class="container">
+		<nav class="navbar navbar-expand-lg navbar-light">
+			<a class="navbar-brand"
+				style="color: pink; font-family: 'Cute Font', cursive; font-size: 5em; margin-right: 40px;"
+				href="${R}shop/index">딸기마켓</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#navbarNav" aria-controls="navbarNav"
+				aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<form class="form-inline my-2 my-lg-0">
+				<input class="form-control mr-sm-2" type="search"
+					placeholder="Search" aria-label="Search" style="width: 300px;">
+				<button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+					<span class="glyphicon glyphicon-search" style="margin: 2px;"></span>
+				</button>
+			</form>
+			<sec:authorize access="not authenticated">
+				<a href="/shop/login"
+					style="font-family: 'Poor Story', cursive; color: black; margin: 5px;">로그인</a>
+				<a href="/shop/register"
+					style="font-family: 'Poor Story', cursive; color: black; margin: 5px;">회원가입</a>
+			</sec:authorize>
+			<sec:authorize access="authenticated">
+				<a href="/user/mypage"
+					style="font-family: 'Poor Story', cursive; color: black; margin: 5px;"><span
+					class="glyphicon glyphicon-user"></span>내정보</a>
+				<a
+					style="font-family: 'Poor Story', cursive; color: black; margin: 5px;"
+					class="btn-default btn-xs" href="${R}user/logout_processing">로그아웃</a>
+				<br />
+				<a href="#"
+					style="font-family: 'Poor Story', cursive; color: black; margin: 5px; color: black;">관심상품</a>
+			</sec:authorize>
+		</nav>
+		<hr />
+
+		<div>
+			<ul>
+				<c:forEach var="c" items="${category}">
+					<li><a href="#" style="color:orange;font-size: 2em;margin-right:10px;">${c.name}</a></li>
+				</c:forEach>
+			</ul>
+		</div>
+	</div>
+</body>
+</html>
