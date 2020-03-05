@@ -19,6 +19,10 @@ public class Product {
 	@ManyToOne
 	@JoinColumn(name = "categoryid")
 	Category category;
+	
+	@ManyToOne
+	@JoinColumn(name = "userid")
+	User user;
 
 	String title;
 	int price;

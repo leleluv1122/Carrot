@@ -29,7 +29,7 @@
 	<div class="container">
 		<nav class="navbar navbar-expand-lg navbar-light">
 			<a class="navbar-brand"
-				style="color: pink; font-family: 'Cute Font', cursive; font-size: 5em; margin-right: 40px;"
+				style="color: pink; font-family: 'Poor Story', cursive; font-size: 5em; margin-right: 40px;"
 				href="${R}shop/index">딸기마켓</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
 				data-target="#navbarNav" aria-controls="navbarNav"
@@ -38,27 +38,29 @@
 			</button>
 			<form class="form-inline my-2 my-lg-0">
 				<input class="form-control mr-sm-2" type="search"
-					placeholder="Search" aria-label="Search" style="width: 300px;">
-				<button class="btn btn-outline-success my-2 my-sm-0" type="submit">
-					<span class="glyphicon glyphicon-search" style="margin: 2px;"></span>
+					placeholder="Search" aria-label="Search" style="margin-top:10px;width: 300px;">
+				<button class="btn btn-outline-success my-2 my-sm-0" style="margin-top:10px;" type="submit">
+					<span class="glyphicon glyphicon-search"  style="margin-top:10px;margin: 2px;"></span>
 				</button>
 			</form>
 			<sec:authorize access="not authenticated">
 				<a href="/shop/login"
-					style="font-family: 'Poor Story', cursive; color: black; margin: 5px;">로그인</a>
+					style="font-family: 'Poor Story', cursive; font-size: 13px; color: black; margin: 5px;">로그인</a>
 				<a href="/shop/register"
-					style="font-family: 'Poor Story', cursive; color: black; margin: 5px;">회원가입</a>
+					style="font-family: 'Poor Story', cursive; color: black; font-size: 13px; margin: 5px;">회원가입</a>
 			</sec:authorize>
 			<sec:authorize access="authenticated">
 				<a href="/user/mypage"
-					style="font-family: 'Poor Story', cursive; color: black; margin: 5px;"><span
-					class="glyphicon glyphicon-user"></span>내정보</a>
+					style="font-family: 'Poor Story', cursive; color: black; font-size: 13px; margin: 5px;"><span
+					class="glyphicon glyphicon-user" style="margin-right: 5px;"></span>내정보</a>
 				<a
-					style="font-family: 'Poor Story', cursive; color: black; margin: 5px;"
+					style="font-family: 'Poor Story', cursive; color: black; font-size: 13px; margin: 5px;"
 					class="btn-default btn-xs" href="${R}user/logout_processing">로그아웃</a>
 				<br />
 				<a href="#"
-					style="font-family: 'Poor Story', cursive; color: black; margin: 5px; color: black;">관심상품</a>
+					style="font-family: 'Poor Story', cursive; color: black; font-size: 13px; margin: 5px; color: black;">관심상품</a>
+				<a href="/user/write"
+					style="font-family: 'Poor Story', cursive; color: black; font-size: 16px; margin: 5px; color: black;">글쓰기</a>
 			</sec:authorize>
 		</nav>
 		<hr />
@@ -66,7 +68,8 @@
 		<div>
 			<ul>
 				<c:forEach var="c" items="${category}">
-					<li><a href="#" style="color:orange;font-size: 2em;margin-right:10px;">${c.name}</a></li>
+					<li><a href="${R}shop/category/${c.id}"
+						style="color: orange; font-size: 1.5em; margin-right: 10px;">${c.name}</a></li>
 				</c:forEach>
 			</ul>
 		</div>

@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>딸기마켓 회원정보</title>
+<title>딸기마켓 제품보기</title>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script
@@ -25,8 +25,32 @@
 	href="https://fonts.googleapis.com/css?family=Cute+Font|Poor+Story&display=swap&subset=korean"
 	rel="stylesheet">
 </head>
+<style>
+/* div .abcde {
+	height: 504px;
+	width: 729px;
+} */
+
+.imgg {
+	margin-left:auto;
+	margin-right:auto;
+	margin-top:30px;
+	margin-bottom:50px;
+	display: block;
+	width: 500px;
+	height: 400px;
+	overflow: hidden;
+	border-radius: 8px;
+}
+</style>
 <body>
 	<%@ include file="../include/nav.jsp"%>
+
+	<div class="container">
+		<div>
+			<img src="/images/${pi.filename}" class="imgg">
+		</div>
+	</div>
 	<%@ include file="../include/bottom.jsp"%>
 </body>
 </html>
