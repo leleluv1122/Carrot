@@ -10,7 +10,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>딸기마켓 상품목록</title>
+<title>딸기마켓 검색결과</title>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script
@@ -26,6 +26,7 @@
 <link
 	href="https://fonts.googleapis.com/css?family=Cute+Font|Poor+Story&display=swap&subset=korean"
 	rel="stylesheet">
+</head>
 <style>
 .imgg {
 	width: 100%;
@@ -72,21 +73,24 @@ div .well {
 
 div .name {
 	padding: 5px;
-	font-size: 13px;
+	font-size:13px;
 }
 
 div .d {
 	padding: 5px;
 	border-bottom: 1px solid #e9ecef;
 }
+h1{
+	margin-left: 30px;
+	margin-right: auto;
+	display: block;
+}
 </style>
-</head>
 <body>
-	<%@ include file="../include/nav.jsp"%>
-
+<%@ include file="../include/nav.jsp"%>
+	<br />
 	<div class="container">
-		<div class="aa">
-			<c:forEach var="p" items="${product}">
+		<c:forEach var="p" items="${list}">
 				<c:forEach var="pi" items="${product_image}">
 					<c:if test="${p.id == pi.productid}">
 						<div class="abcd well"
@@ -110,27 +114,18 @@ div .d {
 								<span style="font-size: 15px;"><b><fmt:formatNumber
 											value="${p.price}" pattern="###,###,###" />원</b></span>
 							</div>
-							<%-- <div class="d">
-								<label>글쓴이</label> <span>${p.user.nickname}</span>
-							</div> --%>
 
 							<div class="name">
-								<span style="margin-right: 10px;">관심 0</span> <span style="margin-right: 10px;">댓글 0</span>
-								<span>조회수 ${p.click}</span>
+								<span style="margin-right: 10px;">관심 0</span> <span style="margin-right: 10px;">댓글 0</span> <span>조회수 ${p.click}</span>
 							</div>
 						</div>
+
 
 					</c:if>
 
 				</c:forEach>
 			</c:forEach>
-
-		</div>
-
 	</div>
-
-
-	<%@ include file="../include/bottom.jsp"%>
-
+<%@ include file="../include/bottom.jsp"%>
 </body>
 </html>

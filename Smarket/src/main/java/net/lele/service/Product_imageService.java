@@ -13,8 +13,16 @@ public class Product_imageService {
 	@Autowired
 	Product_imageRepository product_imageRepository;
 	
-	public Product_image findByProductid(int id) {
+	public List<Product_image> findByProductid(int id) {
 		return product_imageRepository.findByProductid(id);
+	}
+	
+	public int countByProductid(int id) {
+		return product_imageRepository.countByProductid(id);
+	}
+	
+	public List<Product_image> findByProductidgroup(){
+		return product_imageRepository.findByProductidgroup();
 	}
 	
 	public List<Product_image> findAll(){

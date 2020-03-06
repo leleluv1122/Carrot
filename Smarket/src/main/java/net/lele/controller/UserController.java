@@ -1,13 +1,15 @@
 package net.lele.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import net.lele.domain.Category;
 import net.lele.domain.Product;
@@ -32,12 +34,6 @@ public class UserController {
 
 	private String uploadPath = "D:/Carrot/Carrot/Smarket/src/main/resources/static/images/";
 
-	@RequestMapping("user/mypage")
-	public String index(Model model) throws Exception {
-		model.addAttribute("category", categoryService.findAll());
-		return "user/mypage";
-	}
-
 	@RequestMapping(value = "user/write")
 	public String write(Model model) throws Exception {
 		model.addAttribute("category", categoryService.findAll());
@@ -46,7 +42,7 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "user/fileinsert")
-	public String fileinsert(HttpServletRequest request, @RequestPart MultipartFile files, Model model)
+	public String fileinsert(HttpServletRequest request, MultipartHttpServletRequest mtfRequest, Model model)
 			throws Exception {
 		Product p = new Product();
 		Product_image file = new Product_image();
@@ -71,20 +67,39 @@ public class UserController {
 		p.setId(productService.save(p));
 		productrepository.flush();
 
-		String sourceFileName = files.getOriginalFilename();
+		List<MultipartFile> fileList = mtfRequest.getFiles("files");
 
-		String imgUploadPath = uploadPath;
-		String ymdPath = UploadFileUtils.calcPath(imgUploadPath);
-		String fileName = null;
+		String imgUploadPath = uploadPath; 
+		
+		for (MultipartFile fi : fileList) {
+			String sourceFileName = fi.getOriginalFilename();
+			String fileName = null;
+			String ymdPath = UploadFileUtils.calcPath(imgUploadPath); 
+			fileName = UploadFileUtils.fileUpload(imgUploadPath, sourceFileName, fi.getBytes(), ymdPath);
+		
+			file.setFilename(fileName); 
+			file.setProductid(p.getId());
+			file.setFileOriName(sourceFileName); 
+			file.setFileurl(imgUploadPath);
+			
+			product_imageService.save(file);
+		}
 
-		fileName = UploadFileUtils.fileUpload(imgUploadPath, sourceFileName, files.getBytes(), ymdPath);
-
-		file.setFilename(fileName);
-		file.setProductid(p.getId());
-		file.setFileOriName(sourceFileName);
-		file.setFileurl(imgUploadPath);
-
-		product_imageService.save(file);
+		/*
+		 * String sourceFileName = files.getOriginalFilename(); 
+		 * String imgUploadPath = uploadPath; 
+		 * String ymdPath = UploadFileUtils.calcPath(imgUploadPath); 
+		 * String fileName = null;
+		 * 
+		 * fileName = UploadFileUtils.fileUpload(imgUploadPath, sourceFileName, files.getBytes(), ymdPath);
+		 * 
+		 * file.setFilename(fileName); 
+		 * file.setProductid(p.getId());
+		 * file.setFileOriName(sourceFileName); 
+		 * file.setFileurl(imgUploadPath);
+		 * 
+		 * product_imageService.save(file);
+		 */
 
 		return "redirect:/shop/index";
 	}

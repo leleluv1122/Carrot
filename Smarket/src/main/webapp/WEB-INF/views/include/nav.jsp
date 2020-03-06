@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/security/tags"
 	prefix="sec"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <c:url var="R" value="/" />
 <!DOCTYPE>
 <html>
@@ -36,11 +37,14 @@
 				aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
-			<form class="form-inline my-2 my-lg-0">
-				<input class="form-control mr-sm-2" type="search"
-					placeholder="Search" aria-label="Search" style="margin-top:10px;width: 300px;">
-				<button class="btn btn-outline-success my-2 my-sm-0" style="margin-top:10px;" type="submit">
-					<span class="glyphicon glyphicon-search"  style="margin-top:10px;margin: 2px;"></span>
+			<form action="/shop/search/" class="form-inline my-2 my-lg-0">
+				<input class="form-control mr-sm-2" type="search" name="word"
+					placeholder="Search" aria-label="Search"
+					style="margin-top: 10px; width: 300px;">
+				<button class="btn btn-outline-success my-2 my-sm-0"
+					style="margin-top: 10px;" type="submit">
+					<span class="glyphicon glyphicon-search"
+						style="margin-top: 10px; margin: 2px;"></span>
 				</button>
 			</form>
 			<sec:authorize access="not authenticated">
@@ -50,7 +54,8 @@
 					style="font-family: 'Poor Story', cursive; color: black; font-size: 13px; margin: 5px;">회원가입</a>
 			</sec:authorize>
 			<sec:authorize access="authenticated">
-				<a href="/user/mypage"
+				<sec:authentication property="user.id" var="currentid" />
+				<a href="/shop/users/${currentid}"
 					style="font-family: 'Poor Story', cursive; color: black; font-size: 13px; margin: 5px;"><span
 					class="glyphicon glyphicon-user" style="margin-right: 5px;"></span>내정보</a>
 				<a
@@ -69,7 +74,7 @@
 			<ul>
 				<c:forEach var="c" items="${category}">
 					<li><a href="${R}shop/category/${c.id}"
-						style="color: orange; font-size: 1.5em; margin-right: 10px;">${c.name}</a></li>
+						style="color: black; font-size: 1.5em; margin-right: 10px;">${c.name}</a></li>
 				</c:forEach>
 			</ul>
 		</div>

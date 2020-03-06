@@ -24,6 +24,10 @@ public class UserService {
 			return null;
 		return user;
 	}
+	
+	public User findById(int id) {
+		return userRepository.findById(id);
+	}
 
 	public boolean hasErrors(UserRegistrationModel userModel, BindingResult bindingResult) {
 		if (bindingResult.hasErrors())

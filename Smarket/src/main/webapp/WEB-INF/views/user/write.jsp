@@ -43,31 +43,18 @@
 			<form action="/user/fileinsert" method="post"
 				enctype="multipart/form-data" autocomplete="off">
 				<input type="hidden" id="userid" name="userid" value="${currentid}">
+				
 				<div class="form-group">
-					<label for="file">파일 업로드 </label><input type="file" id="gdsImg" name="files">
-					<!-- <div class="select_img">
-						<img src="" />
-					</div> -->
-					<!-- <script>
-						$("#gdsImg").change(
-								function() {
-									if (this.files && this.files[0]) {
-										var reader = new FileReader;
-										reader.onload = function(data) {
-											$(".select_img img").attr("src",
-													data.target.result).width(
-													500);
-										}
-										reader.readAsDataURL(this.files[0]);
-									}
-								});
-					</script> -->
+					<label for="file">파일 업로드 </label>
+					<input multiple="multiple" type="file" name="files" required />
 				</div>
+				
 				<div class="form-group">
 					<label for="title">Title</label><input type="text"
 						class="form-control w200" id="title" name="title"
-						placeholder="제목을 입력하세요">
+						placeholder="제목을 입력하세요" required />
 				</div>
+				
 				<div class="form-group">
 					<label for="category">Category</label> <select id="category"
 						name="category" class="form-control w200">
@@ -76,16 +63,19 @@
 						</c:forEach>
 					</select>
 				</div>
+				
 				<div class="form-group">
 					<label for="price">Price</label><input type="text"
 						class="form-control w200" id="price" name="price"
-						placeholder="가격을 입력하세요">
+						placeholder="가격을 입력하세요" required />
 				</div>
+				
 				<div class="form-group">
 					<label for="detail">Detail</label><input type="text"
 						class="form-control w4h2" id="detail" name="detail"
-						placeholder="설명을 입력하세요">
+						placeholder="설명을 입력하세요" required />
 				</div>
+				
 				<br />
 				<button type="submit" class="btn btn-dark">작성</button>
 			</form>
