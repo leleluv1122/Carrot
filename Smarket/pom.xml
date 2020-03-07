@@ -119,6 +119,13 @@
 			<version>0.4.8</version>
 		</dependency>
 
+		<!-- 지도 경도위도무ㅏ시기 -->
+		<dependency>
+			<groupId>com.google.code.geocoder-java</groupId>
+			<artifactId>geocoder-java</artifactId>
+			<version>0.16</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>

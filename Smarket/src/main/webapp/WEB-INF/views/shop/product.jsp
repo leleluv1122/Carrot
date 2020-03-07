@@ -49,7 +49,7 @@ div .ab {
 	margin-left: auto;
 	margin-right: auto;
 	display: block;
-	width: 677px;
+	width: 70%;
 	height: 40px;
 	margin-right: auto;
 	display: block;
@@ -64,11 +64,9 @@ div .abcc {
 	margin-right: auto;
 	display: block;
 	width: 677px;
-	height: 40px;
+	height: 150px;
 	margin-right: auto;
 	display: block;
-	width: 677px;
-	height: 40px;
 	margin-bottom: 120px;
 }
 
@@ -102,9 +100,10 @@ div .z {
 	margin-right: auto;
 	display: block;
 }
-.noimg{
-	width:30px;
-	height:30px;
+
+.noimg {
+	width: 30px;
+	height: 30px;
 	border-radius: 8px;
 }
 </style>
@@ -112,54 +111,94 @@ div .z {
 	<%@ include file="../include/nav.jsp"%>
 
 	<div class="container">
-		<div>
-				<c:forEach var="pi" items="${pi}">
-					<img src="/images/${pi.filename}" class="imgg">
-				</c:forEach>
+		<c:forEach var="pi" items="${pi}">
+			<img src="/images/${pi.filename}" class="imgg">
+		</c:forEach>
 
-				<div class="ab" onclick="location.href='/shop/users/${p.user.id}'">
-					<label style="margin-left: 80px;"><img src="/images/blank-profile-picture-973460_1280.png" class="noimg"></label> <span
-						style="margin-left: 10px; font-size: 18px; font-weight: 600; line-height: 1.5; letter-spacing: -0.6px; color: #212529;"><b>${p.user.nickname}</b></span>
-					<br /> <span style="margin-left: 120px; font-size: 16px;">
-						<c:choose>
-							<c:when test="${fn:length(p.user.address) gt 8}">
-								<c:out value="${fn:substring(p.user.address, 0, 7)}">
-								</c:out>
-							</c:when>
-							<c:otherwise>
-								<c:out value="${p.user.address}">
-								</c:out>
-							</c:otherwise>
-						</c:choose>
-					</span> <span style="margin-left: 6px; font-size: 16px;"> <c:choose>
-							<c:when test="${fn:length(p.user.addrplus) gt 6}">
-								<c:out value="${fn:substring(p.user.addrplus, 2, 5)}">
-								</c:out>
-							</c:when>
-							<c:otherwise>
-								<c:out value="${p.user.addrplus}">
-								</c:out>
-							</c:otherwise>
-						</c:choose></span>
-
-				</div>
-
-
-				<div class="abcc">
-					<hr />
-					<span style="margin-left: 80px; font-size: 20px;"><b>${p.title}</b></span>
-					<br /> <span style="margin-left: 80px; font-size: 16px;">${p.category.name}</span>
-					<span style="margin-left: 30px; font-size: 16px;"><fmt:formatDate
-							value="${p.writedate}" pattern="yyyy.MM.dd HH:mm:ss" /></span> <br />
-					<span style="margin-left:80px;color:orange; font-size:18px;">${p.price} 원</span><br />
-					<span style="margin-left: 80px; font-size:18px;"><b>${p.detail}</b></span> <br />
-					<hr />
-					<label style="margin-left: 80px; font-size:18px;">조회수</label><span style="margin-left:5px;font-size:18px;">${p.click}</span>
-				</div>
+		<div class="ab" onclick="location.href='/shop/users/${p.user.id}'">
+			<label style="margin-left: 80px;"><img
+				src="/images/blank-profile-picture-973460_1280.png" class="noimg"></label>
+			<span
+				style="margin-left: 10px; font-size: 18px; font-weight: 600; line-height: 1.5; letter-spacing: -0.6px; color: #212529;"><b>${p.user.nickname}</b></span>
+			<br /> <span style="margin-left: 120px; font-size: 16px;"> <c:choose>
+					<c:when test="${fn:length(p.user.address) gt 8}">
+						<c:out value="${fn:substring(p.user.address, 0, 7)}">
+						</c:out>
+					</c:when>
+					<c:otherwise>
+						<c:out value="${p.user.address}">
+						</c:out>
+					</c:otherwise>
+				</c:choose>
+			</span> <span style="margin-left: 6px; font-size: 16px;"> <c:choose>
+					<c:when test="${fn:length(p.user.addrplus) gt 6}">
+						<c:out value="${fn:substring(p.user.addrplus, 2, 5)}">
+						</c:out>
+					</c:when>
+					<c:otherwise>
+						<c:out value="${p.user.addrplus}">
+						</c:out>
+					</c:otherwise>
+				</c:choose></span>
 
 		</div>
-		<br /><br />
+
+
+		<div class="abcc">
+			<hr />
+			<span style="margin-left: 80px; font-size: 20px;"><b>${p.title}</b></span>
+			<br /> <span style="margin-left: 80px; font-size: 16px;">${p.category.name}</span>
+			<span style="margin-left: 30px; font-size: 16px;"><fmt:formatDate
+					value="${p.writedate}" pattern="yyyy.MM.dd HH:mm:ss" /></span> <br /> <span
+				style="margin-left: 80px; color: orange; font-size: 18px;">${p.price}
+				원</span><br /> <span style="margin-left: 80px; font-size: 18px;"><b>${p.detail}</b></span>
+			<br />
+			<hr />
+
+			<label style="margin-left: 70px; font-size: 18px;">조회수</label><span
+				style="height: 15px; margin-left: 5px; font-size: 20px;">${p.click}</span>
+			<br />
+			<hr />
+			<sec:authorize access="not authenticated">
+				<a href="" onclick="if(!confirm('로그인후 사용가능합니다')){return false;}"
+					class="btn btn-dark"> <span
+					class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+					관심상품
+				</a>
+			</sec:authorize>
+
+			<sec:authorize access="authenticated">
+				<sec:authentication property="user.id" var="currentid" />
+				<c:if test="${interest == 0}">
+					<form:form method="post" modelAttribute="interest_product">
+						<form:hidden path="product" value="${p.id}" />
+						<form:hidden path="user" value="${currentid}" />
+						<button style="color:black;"
+							type="submit" class="btn"
+							onclick="return confirm('관심상품에 등록 하시겠습니까?')">
+							<span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>관심상품
+						</button>
+					</form:form>
+				</c:if>
+				<c:if test="${interest == 1}">
+					<a href="/shop/delete/${p.id}" class="btn" style="color:black;"
+						onclick="if(!confirm('관심상품에서 삭제 하시겠습니까?')){return false;}"><span
+						class="glyphicon glyphicon-star" style="color:red;margin-right:5px;" aria-hidden="true"></span>관심상품</a>
+				</c:if>
+
+
+				<a href="#" style="margin: 10;" class="btn btn-dark"> <span
+					class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+					채팅보내기
+				</a>
+
+			</sec:authorize>
+		</div>
+		<br /> <br />
 		<hr />
+
+
+
 	</div>
 	<%@ include file="../include/bottom.jsp"%>
 </body>

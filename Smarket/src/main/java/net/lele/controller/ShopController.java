@@ -3,6 +3,7 @@ package net.lele.controller;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -10,9 +11,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import net.lele.domain.Interest_product;
 import net.lele.domain.Search;
 import net.lele.model.UserRegistrationModel;
 import net.lele.service.CategoryService;
+import net.lele.service.Interest_productService;
 import net.lele.service.ProductService;
 import net.lele.service.Product_imageService;
 import net.lele.service.SearchService;
@@ -30,6 +33,8 @@ public class ShopController {
 	Product_imageService product_imageService;
 	@Autowired
 	SearchService searchService;
+	@Autowired
+	Interest_productService ips;
 
 	@RequestMapping({ "/", "shop/index" })
 	public String index(Model model) throws Exception {
@@ -72,8 +77,11 @@ public class ShopController {
 	}
 
 	@RequestMapping("shop/product/{id}")
-	public String product(@PathVariable("id") int id, Model model) throws Exception {
+	public String product(@PathVariable("id") int id, Interest_product i, Model model) throws Exception {
 		productService.clickupdate(id);
+		String userId = SecurityContextHolder.getContext().getAuthentication().getName();
+		
+		model.addAttribute("interest", ips.countByUserUserIdAndProductId(userId,id));
 
 		model.addAttribute("idd", id);
 		model.addAttribute("category", categoryService.findAll());
@@ -105,11 +113,20 @@ public class ShopController {
 		return "shop/search";
 	}
 
-	@RequestMapping(value="shop/interest/{id}")
-	public String interest(@PathVariable("id") int id, Model model) throws Exception {
-		
-		
+	@RequestMapping(value="shop/product/{id}", method = RequestMethod.POST)
+	public String product(@PathVariable("id") int id, Model model, Interest_product i, BindingResult bindingResult) throws Exception {
+		ips.save(i);
 		return "redirect:/shop/product/{id}";
 	}
+	
+	@RequestMapping(value = "shop/delete/{id}")
+	public String delete(@PathVariable("id") int id, Model model) throws Exception {
+		String userId = SecurityContextHolder.getContext().getAuthentication().getName();
+		
+		ips.delete(id, userId);
+		model.addAttribute("category", categoryService.findAll());
+		return "redirect:/shop/product/{id}";
+	}
+
 
 }

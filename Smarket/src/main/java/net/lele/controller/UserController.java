@@ -5,9 +5,12 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -17,6 +20,7 @@ import net.lele.domain.Product_image;
 import net.lele.domain.User;
 import net.lele.repository.ProductRepository;
 import net.lele.service.CategoryService;
+import net.lele.service.Interest_productService;
 import net.lele.service.ProductService;
 import net.lele.service.Product_imageService;
 import net.lele.utils.UploadFileUtils;
@@ -31,9 +35,33 @@ public class UserController {
 	ProductService productService;
 	@Autowired
 	ProductRepository productrepository;
+	@Autowired
+	Interest_productService ips;
 
 	private String uploadPath = "D:/Carrot/Carrot/Smarket/src/main/resources/static/images/";
 
+	@RequestMapping(value="user/location")
+	public String location(Model model) {
+		model.addAttribute("category", categoryService.findAll());
+		return "user/location";
+	}
+	
+	@RequestMapping(value = "shop/location", method = RequestMethod.POST)
+	public String location(Model model, BindingResult bindingResult) {
+		
+		return "redirect:/shop/index";
+	}
+	
+	@RequestMapping(value="user/interest")
+	public String interest(Model model) {
+		String userId = SecurityContextHolder.getContext().getAuthentication().getName();
+		model.addAttribute("count", ips.countByUserUserId(userId));
+		model.addAttribute("category", categoryService.findAll());
+		model.addAttribute("interest", ips.findByUserUserId(userId));
+		model.addAttribute("product_image", product_imageService.findByProductidgroup());
+		return "user/interest";
+	}
+	
 	@RequestMapping(value = "user/write")
 	public String write(Model model) throws Exception {
 		model.addAttribute("category", categoryService.findAll());

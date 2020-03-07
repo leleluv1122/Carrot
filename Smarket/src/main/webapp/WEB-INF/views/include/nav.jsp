@@ -62,10 +62,12 @@
 					style="font-family: 'Poor Story', cursive; color: black; font-size: 13px; margin: 5px;"
 					class="btn-default btn-xs" href="${R}user/logout_processing">로그아웃</a>
 				<br />
-				<a href="#"
+				<a href="/user/interest"
 					style="font-family: 'Poor Story', cursive; color: black; font-size: 13px; margin: 5px; color: black;">관심상품</a>
 				<a href="/user/write"
 					style="font-family: 'Poor Story', cursive; color: black; font-size: 16px; margin: 5px; color: black;">글쓰기</a>
+				<a href="/user/location"
+					style="font-family: 'Poor Story', cursive; color: black; font-size: 16px; margin: 5px; color: black;">동네인증</a>
 			</sec:authorize>
 		</nav>
 		<hr />
