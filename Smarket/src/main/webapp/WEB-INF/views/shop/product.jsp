@@ -64,7 +64,7 @@ div .abcc {
 	margin-right: auto;
 	display: block;
 	width: 677px;
-	height: 150px;
+	height: 400px;
 	margin-right: auto;
 	display: block;
 	margin-bottom: 120px;
@@ -157,6 +157,8 @@ div .z {
 
 			<label style="margin-left: 70px; font-size: 18px;">조회수</label><span
 				style="height: 15px; margin-left: 5px; font-size: 20px;">${p.click}</span>
+			<label style="margin-left: 70px; font-size: 18px;">관심</label><span
+				style="height: 15px; margin-left: 5px; font-size: 20px;">${pcnt}</span>
 			<br />
 			<hr />
 			<sec:authorize access="not authenticated">
@@ -173,17 +175,17 @@ div .z {
 					<form:form method="post" modelAttribute="interest_product">
 						<form:hidden path="product" value="${p.id}" />
 						<form:hidden path="user" value="${currentid}" />
-						<button style="color:black;"
-							type="submit" class="btn"
+						<button style="color: black;" type="submit" class="btn"
 							onclick="return confirm('관심상품에 등록 하시겠습니까?')">
 							<span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>관심상품
 						</button>
 					</form:form>
 				</c:if>
 				<c:if test="${interest == 1}">
-					<a href="/shop/delete/${p.id}" class="btn" style="color:black;"
+					<a href="/shop/delete/${p.id}" class="btn" style="color: black;"
 						onclick="if(!confirm('관심상품에서 삭제 하시겠습니까?')){return false;}"><span
-						class="glyphicon glyphicon-star" style="color:red;margin-right:5px;" aria-hidden="true"></span>관심상품</a>
+						class="glyphicon glyphicon-star"
+						style="color: red; margin-right: 5px;" aria-hidden="true"></span>관심상품</a>
 				</c:if>
 
 
@@ -193,13 +195,44 @@ div .z {
 				</a>
 
 			</sec:authorize>
+
+			<!--  댓글  -->
+			<div class="container">
+				<label for="content">comment</label>
+				<form name="commentInsertForm">
+					<div class="input-group">
+						<input type="hidden" name="pid" value="${p.id}" /> <input
+							type="text" class="form-control w400" id="content" name="content"
+							placeholder="내용을 입력하세요."> <span class="input-group-btn">
+							<sec:authorize access="authenticated">
+								<sec:authentication property="user.id" var="currentid" />
+								<input type="hidden" name="uid" value="${currentid}" />
+							</sec:authorize>
+							<button class="btn btn-dark" type="button"
+								name="commentInsertBtn">등록</button>
+						</span>
+					</div>
+				</form>
+			</div>
+			<sec:authorize access="not authenticated">
+				<span style="font-size:13px;">회원들만 댓글을 볼 수 있습니다</span><br />
+				
+				<a href="/shop/login"  style="font-family: 'Poor Story', cursive; font-size: 18px;color:black;">로그인 하러가기</a><br />
+				<a href="/shop/register"  style="font-family: 'Poor Story', cursive; font-size: 18px;color:black;">회원가입 하러가기</a>
+			</sec:authorize>
+			<div class="container" style="margin-bottom:200px;">
+				<div class="commentList"></div>
+			</div>
+			
+			
 		</div>
 		<br /> <br />
 		<hr />
 
 
-
 	</div>
+
+	<%@ include file="commentS.jsp"%>
 	<%@ include file="../include/bottom.jsp"%>
 </body>
 </html>

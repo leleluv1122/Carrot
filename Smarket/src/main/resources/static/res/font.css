@@ -1,13 +1,16 @@
 body {
 	font-family: 'Poor Story', cursive;
 }
-ul li{
-	list-style-type:none;
-	float:left;
+
+ul li {
+	list-style-type: none;
+	float: left;
 }
+
 h1 {
 	font-family: 'Poor Story', cursive;
 }
+
 input.form-control.w100 {
 	width: 100px;
 	font-size: 13px;

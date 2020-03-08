@@ -41,6 +41,17 @@ public class ShopController {
 		model.addAttribute("category", categoryService.findAll());
 		model.addAttribute("product", productService.findByProductlimit());
 		model.addAttribute("product_image", product_imageService.findByProductidgroup());
+
+		/* model.addAttribute("cnt", ips.countByproductidgroup()); */
+
+		/*
+		 * List<Object[]> results = ipr.countByproductidgroup(); for (Object[] result :
+		 * results) { int id = ((Number) result[1]).intValue(); int count = ((Number)
+		 * result[1]).intValue(); model.addAttribute("cnt", result); }
+		 * 
+		 * model.addAttribute("cnt", ipr.countByproductidgroup());
+		 */
+
 		return "shop/index";
 	}
 
@@ -80,9 +91,9 @@ public class ShopController {
 	public String product(@PathVariable("id") int id, Interest_product i, Model model) throws Exception {
 		productService.clickupdate(id);
 		String userId = SecurityContextHolder.getContext().getAuthentication().getName();
-		
-		model.addAttribute("interest", ips.countByUserUserIdAndProductId(userId,id));
 
+		model.addAttribute("interest", ips.countByUserUserIdAndProductId(userId, id));
+		model.addAttribute("pcnt", ips.countByProductId(id));
 		model.addAttribute("idd", id);
 		model.addAttribute("category", categoryService.findAll());
 		model.addAttribute("p", productService.findById(id));
@@ -113,20 +124,20 @@ public class ShopController {
 		return "shop/search";
 	}
 
-	@RequestMapping(value="shop/product/{id}", method = RequestMethod.POST)
-	public String product(@PathVariable("id") int id, Model model, Interest_product i, BindingResult bindingResult) throws Exception {
+	@RequestMapping(value = "shop/product/{id}", method = RequestMethod.POST)
+	public String product(@PathVariable("id") int id, Model model, Interest_product i, BindingResult bindingResult)
+			throws Exception {
 		ips.save(i);
 		return "redirect:/shop/product/{id}";
 	}
-	
+
 	@RequestMapping(value = "shop/delete/{id}")
 	public String delete(@PathVariable("id") int id, Model model) throws Exception {
 		String userId = SecurityContextHolder.getContext().getAuthentication().getName();
-		
+
 		ips.delete(id, userId);
 		model.addAttribute("category", categoryService.findAll());
 		return "redirect:/shop/product/{id}";
 	}
-
 
 }

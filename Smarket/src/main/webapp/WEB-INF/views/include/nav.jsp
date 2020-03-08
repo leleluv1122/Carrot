@@ -37,7 +37,7 @@
 				aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
-			<form action="/shop/search/" class="form-inline my-2 my-lg-0">
+			<form action="/shop/search" class="form-inline my-2 my-lg-0">
 				<input class="form-control mr-sm-2" type="search" name="word"
 					placeholder="Search" aria-label="Search"
 					style="margin-top: 10px; width: 300px;">
@@ -47,28 +47,46 @@
 						style="margin-top: 10px; margin: 2px;"></span>
 				</button>
 			</form>
-			<sec:authorize access="not authenticated">
-				<a href="/shop/login"
-					style="font-family: 'Poor Story', cursive; font-size: 13px; color: black; margin: 5px;">로그인</a>
-				<a href="/shop/register"
-					style="font-family: 'Poor Story', cursive; color: black; font-size: 13px; margin: 5px;">회원가입</a>
-			</sec:authorize>
-			<sec:authorize access="authenticated">
-				<sec:authentication property="user.id" var="currentid" />
-				<a href="/shop/users/${currentid}"
-					style="font-family: 'Poor Story', cursive; color: black; font-size: 13px; margin: 5px;"><span
-					class="glyphicon glyphicon-user" style="margin-right: 5px;"></span>내정보</a>
-				<a
-					style="font-family: 'Poor Story', cursive; color: black; font-size: 13px; margin: 5px;"
-					class="btn-default btn-xs" href="${R}user/logout_processing">로그아웃</a>
-				<br />
-				<a href="/user/interest"
-					style="font-family: 'Poor Story', cursive; color: black; font-size: 13px; margin: 5px; color: black;">관심상품</a>
-				<a href="/user/write"
-					style="font-family: 'Poor Story', cursive; color: black; font-size: 16px; margin: 5px; color: black;">글쓰기</a>
-				<a href="/user/location"
-					style="font-family: 'Poor Story', cursive; color: black; font-size: 16px; margin: 5px; color: black;">동네인증</a>
-			</sec:authorize>
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav mr-auto">
+					<sec:authorize access="not authenticated">
+						<li class="nav-item" style="margin-top:10px;"><a href="/shop/login"
+							style="font-family: 'Poor Story', cursive; font-size: 13px; color: black; margin: 5px;">로그인</a></li>
+						<li class="nav-item" style="margin-top:10px;"><a href="/shop/register"
+							style="font-family: 'Poor Story', cursive; color: black; font-size: 13px; margin: 5px;">회원가입</a></li>
+					</sec:authorize>
+					<sec:authorize access="authenticated">
+						<sec:authentication property="user.id" var="currentid" />
+						<li class="nav-item" style="margin-top:10px;"><a href="/shop/users/${currentid}"
+							style="font-family: 'Poor Story', cursive; color: black; font-size: 13px;"><span
+								class="glyphicon glyphicon-user" style="margin-right: 5px;"></span>내정보</a></li>
+						<li class="nav-item" style="margin-top:10px;"><a
+							style="font-family: 'Poor Story', cursive; color: black; font-size: 13px; margin: 5px;"
+							href="${R}user/logout_processing">로그아웃</a></li>
+						<li class="nav-item" style="margin-top:10px;"><a href="/user/interest"
+							style="font-family: 'Poor Story', cursive; color: black; font-size: 13px; margin: 5px; color: black;">관심상품</a></li>
+						<li class="nav-item" style="margin-top:10px;"><a href="/user/write"
+							style="font-family: 'Poor Story', cursive; color: black; font-size: 13px; margin: 5px; color: black;">글쓰기</a></li>
+						<li class="nav-item" style="margin-top:10px;"><a href="/user/location"
+							style="font-family: 'Poor Story', cursive; color: black; font-size: 13px; margin: 5px; color: black;">동네인증</a></li>
+					</sec:authorize>
+
+					<li class="nav-item dropdown"><a
+						class="nav-link dropdown-toggle" href="#"
+						id="navbarDropdownMenuLink" role="button" data-toggle="dropdown"
+						aria-haspopup="true" aria-expanded="false"><b>문의사항</b> </a>
+						<div class="dropdown-menu"
+							aria-labelledby="navbarDropdownMenuLink">
+
+							<a class="btn btn-light btn-xs" href="#">공지사항</a> <br /> <a
+								class="btn btn-light btn-xs" href="#">자주묻는질문</a>
+
+							<sec:authorize access="authenticated">
+								<a class="btn btn-light btn-xs" href="#">1:1문의</a>
+							</sec:authorize>
+						</div></li>
+				</ul>
+			</div>
 		</nav>
 		<hr />
 

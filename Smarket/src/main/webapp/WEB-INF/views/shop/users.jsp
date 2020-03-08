@@ -183,7 +183,7 @@ div .d {
 										</div>
 
 										<div class="name">
-											<span style="margin-right: 10px;">관심 0</span> <span style="margin-right: 10px;">댓글
+											<!-- <span style="margin-right: 10px;">관심 0</span> --> <span style="margin-right: 10px;">댓글
 												0</span><span>조회수 ${p.click}</span>
 										</div>
 									</div>

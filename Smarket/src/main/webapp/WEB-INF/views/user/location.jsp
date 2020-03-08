@@ -92,9 +92,9 @@ div #map {
 
 span {
 	font-size: 25px;
-	margin-left:auto;
-	margin-right:auto;
+	margin-left: auto; margin-right : auto;
 	display: block;
+	margin-right: auto;
 }
 </style>
 </head>
@@ -105,12 +105,8 @@ span {
 		<div id="map"></div>
 
 		<span>내가 사는 동네가 맞나요?</span><br /> <span>맞으면 인증버튼을 눌러주세요!</span><br />
-
 		<button id="check_btn" class="btn ba" type="submit"
-			style="font-size: 20px;margin:10; color: black;">인증하기</button>
-		<script>
-		
-		</script>
+			style="font-size: 20px; margin: 10; color: black;">인증하기</button>
 	</div>
 
 

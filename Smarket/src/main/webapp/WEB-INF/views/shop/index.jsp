@@ -73,14 +73,15 @@ div .well {
 
 div .name {
 	padding: 5px;
-	font-size:13px;
+	font-size: 13px;
 }
 
 div .d {
 	padding: 5px;
 	border-bottom: 1px solid #e9ecef;
 }
-h1{
+
+h1 {
 	margin-left: 30px;
 	margin-right: auto;
 	display: block;
@@ -91,8 +92,8 @@ h1{
 	<br />
 	<div class="container">
 		<div class="aa">
-		
-		<h1>딸기마켓 최근 상품</h1>
+
+			<h1>딸기마켓 최근 상품</h1>
 			<c:forEach var="p" items="${product}">
 				<c:forEach var="pi" items="${product_image}">
 					<c:if test="${p.id == pi.productid}">
@@ -119,7 +120,12 @@ h1{
 							</div>
 
 							<div class="name">
-								<span style="margin-right: 10px;">관심 0</span> <span style="margin-right: 10px;">댓글 0</span> <span>조회수 ${p.click}</span>
+
+								<%-- <c:if test="${cnt.product.id == p.id }"> --%>
+								<!-- <span style="margin-right: 10px;">관심 0</span> -->
+								<%-- </c:if> --%>
+								<span style="margin-right: 10px;">댓글 0</span> <span>조회수
+									${p.click}</span>
 							</div>
 						</div>
 
@@ -130,6 +136,10 @@ h1{
 			</c:forEach>
 
 		</div>
+
+		<%-- <c:forEach var="cnt" items="${cnt}"> --%>
+			<%-- <span>${cnt}</span> --%>
+		<%-- </c:forEach> --%>
 	</div>
 	<%@ include file="../include/bottom.jsp"%>
 </body>
