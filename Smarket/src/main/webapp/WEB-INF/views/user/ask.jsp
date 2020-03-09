@@ -10,7 +10,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>딸기마켓 관리자-공지사항</title>
+<title>딸기마켓 1:1문의</title>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script
@@ -26,23 +26,36 @@
 <link
 	href="https://fonts.googleapis.com/css?family=Cute+Font|Poor+Story&display=swap&subset=korean"
 	rel="stylesheet">
+<script language="javascript">
+	function captureReturnKey(e) {
+		if (e.keyCode == 13 && e.srcElement.type != 'textarea')
+			return false;
+	}
+</script>
 </head>
 <body>
 	<%@ include file="../include/nav.jsp"%>
+	<br />
 	<div class="container">
-		<form:form method="post" modelAttribute="notice" autocomplete="off">
+		<form:form method="post" modelAttribute="ask" autocomplete="off"
+			onkeydown="return captureReturnKey(event)">
+			<sec:authentication property="user.id" var="currentid" />
+			<form:hidden path="user" value="${currentid}" />
 			<div class="form-group">
 				<label>제목:</label>
-				<form:input path="title" class="form-control w400" required="required" />
+				<form:input path="title" class="form-control w400"
+					required="required" />
 			</div>
 			<div class="form-group">
 				<label>내용:</label>
-				<form:input path="detail" class="form-control w4h2" required="required" />
+				<form:input path="detail" class="form-control w4h2"
+					required="required" />
 			</div>
 			<button type="submit" style="background-color: #F3969A;"
 				onclick="return confirm('작성 하시겠습니까?')" class="btn">작성</button>
 		</form:form>
 	</div>
+
 	<%@ include file="../include/bottom.jsp"%>
 
 </body>

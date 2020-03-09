@@ -10,7 +10,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>딸기마켓 관리자-공지사항</title>
+<title>딸기마켓 관리자페이지</title>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script
@@ -30,19 +30,12 @@
 <body>
 	<%@ include file="../include/nav.jsp"%>
 	<div class="container">
-		<form:form method="post" modelAttribute="notice" autocomplete="off">
-			<div class="form-group">
-				<label>제목:</label>
-				<form:input path="title" class="form-control w400" required="required" />
-			</div>
-			<div class="form-group">
-				<label>내용:</label>
-				<form:input path="detail" class="form-control w4h2" required="required" />
-			</div>
-			<button type="submit" style="background-color: #F3969A;"
-				onclick="return confirm('작성 하시겠습니까?')" class="btn">작성</button>
-		</form:form>
+		<ul>
+			<li><a style="font-size:18px;margin:5;" href="/admin/notice">공지사항 작성</a></li>
+			<li><a style="font-size:18px;margin:5;" href="/admin/asklist">1:1 문의 보기</a></li>
+		</ul>
 	</div>
+	
 	<%@ include file="../include/bottom.jsp"%>
 
 </body>

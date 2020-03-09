@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.BindingResult;
 
 import net.lele.domain.Notice;
 import net.lele.repository.NoticeRepository;
@@ -37,6 +38,12 @@ public class NoticeService {
 	
 	public Notice findById(int id) {
 		return noticeRepository.findById(id);
+	}
+	
+	public boolean hasErrors(Notice notice, BindingResult bindingResult) {
+		if (bindingResult.hasErrors())
+			return true;
+		return false;
 	}
 	
 	public void clickupdate(int id) {

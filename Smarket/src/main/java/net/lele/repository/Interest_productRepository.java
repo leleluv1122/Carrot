@@ -1,6 +1,7 @@
 package net.lele.repository;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.transaction.Transactional;
 
@@ -23,7 +24,7 @@ public interface Interest_productRepository extends JpaRepository<Interest_produ
 
 	int countByProductId(int pid);
 
-	@Query("SELECT i.product.id as id, COUNT(i.product.id) as cnt FROM Interest_product i GROUP BY i.product")
-	List<Object[]> countByproductidgroup();
+	@Query("SELECT new map(i.product.id as id, COUNT(i.product.id) as cnt) FROM Interest_product i GROUP BY i.product")
+	List<Map<Integer, Integer>> countByproductidgroup();
 
 }

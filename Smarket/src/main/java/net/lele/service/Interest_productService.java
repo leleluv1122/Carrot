@@ -1,6 +1,7 @@
 package net.lele.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,7 +26,7 @@ public class Interest_productService {
 		return ipr.countByProductId(pid);
 	}
 	
-	public List<Object[]> countByproductidgroup(){
+	public List<Map<Integer, Integer>> countByproductidgroup(){
 		return ipr.countByproductidgroup();
 	}
 

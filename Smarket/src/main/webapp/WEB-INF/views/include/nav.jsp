@@ -40,7 +40,7 @@
 			<form action="/shop/search" class="form-inline my-2 my-lg-0">
 				<input class="form-control mr-sm-2" type="search" name="word"
 					placeholder="Search" aria-label="Search"
-					style="margin-top: 10px; width: 300px;">
+					style="margin-top: 10px; width: 250px;">
 				<button class="btn btn-outline-success my-2 my-sm-0"
 					style="margin-top: 10px;" type="submit">
 					<span class="glyphicon glyphicon-search"
@@ -50,25 +50,31 @@
 			<div class="collapse navbar-collapse" id="navbarNav">
 				<ul class="navbar-nav mr-auto">
 					<sec:authorize access="not authenticated">
-						<li class="nav-item" style="margin-top:10px;"><a href="/shop/login"
+						<li class="nav-item" style="margin-top: 10px;"><a
+							href="/shop/login"  class="nav-item"
 							style="font-family: 'Poor Story', cursive; font-size: 13px; color: black; margin: 5px;">로그인</a></li>
-						<li class="nav-item" style="margin-top:10px;"><a href="/shop/register"
+						<li class="nav-item" style="margin-top: 10px;"><a
+							href="/shop/register"  class="nav-item"
 							style="font-family: 'Poor Story', cursive; color: black; font-size: 13px; margin: 5px;">회원가입</a></li>
 					</sec:authorize>
 					<sec:authorize access="authenticated">
 						<sec:authentication property="user.id" var="currentid" />
-						<li class="nav-item" style="margin-top:10px;"><a href="/shop/users/${currentid}"
+						<li class="nav-item" style="margin-top: 10px;"><a
+							href="/shop/users/${currentid}"  class="nav-item"
 							style="font-family: 'Poor Story', cursive; color: black; font-size: 13px;"><span
-								class="glyphicon glyphicon-user" style="margin-right: 5px;"></span>내정보</a></li>
-						<li class="nav-item" style="margin-top:10px;"><a
-							style="font-family: 'Poor Story', cursive; color: black; font-size: 13px; margin: 5px;"
+								class="glyphicon glyphicon-user" style="margin-right: 3px;"></span>내정보</a></li>
+						<li class="nav-item" style="margin-top: 10px;"><a  class="nav-item"
+							style="font-family: 'Poor Story', cursive; color: black; font-size: 13px; margin: 3px;"
 							href="${R}user/logout_processing">로그아웃</a></li>
-						<li class="nav-item" style="margin-top:10px;"><a href="/user/interest"
-							style="font-family: 'Poor Story', cursive; color: black; font-size: 13px; margin: 5px; color: black;">관심상품</a></li>
-						<li class="nav-item" style="margin-top:10px;"><a href="/user/write"
-							style="font-family: 'Poor Story', cursive; color: black; font-size: 13px; margin: 5px; color: black;">글쓰기</a></li>
-						<li class="nav-item" style="margin-top:10px;"><a href="/user/location"
-							style="font-family: 'Poor Story', cursive; color: black; font-size: 13px; margin: 5px; color: black;">동네인증</a></li>
+						<li class="nav-item" style="margin-top: 10px;"><a
+							href="/user/interest"  class="nav-item"
+							style="font-family: 'Poor Story', cursive; color: black; font-size: 13px; margin: 3px; color: black;">관심상품</a></li>
+						<li class="nav-item" style="margin-top: 10px;"><a
+							href="/user/write"  class="nav-item"
+							style="font-family: 'Poor Story', cursive; color: black; font-size: 13px; margin: 3px; color: black;">글쓰기</a></li>
+						<li class="nav-item" style="margin-top: 10px;"><a
+							href="/user/location"  class="nav-item"
+							style="font-family: 'Poor Story', cursive; color: black; font-size: 13px; margin: 3px; color: black;">동네인증</a></li>
 					</sec:authorize>
 
 					<li class="nav-item dropdown"><a
@@ -78,13 +84,17 @@
 						<div class="dropdown-menu"
 							aria-labelledby="navbarDropdownMenuLink">
 
-							<a class="btn btn-light btn-xs" href="#">공지사항</a> <br /> <a
-								class="btn btn-light btn-xs" href="#">자주묻는질문</a>
+							<a class="btn btn-light btn-xs" href="/shop/notice">공지사항</a> <br />
+							<a class="btn btn-light btn-xs" href="/shop/notice">자주묻는질문</a>
 
 							<sec:authorize access="authenticated">
-								<a class="btn btn-light btn-xs" href="#">1:1문의</a>
+								<a class="btn btn-light btn-xs" href="/user/asklist">1:1문의</a>
 							</sec:authorize>
 						</div></li>
+					<sec:authorize access="hasRole('ROLE_ADMIN')">
+						<li class="nav-item"><a class="nav-link"
+							href="${R}admin/index"><b>관리자</b></a></li>
+					</sec:authorize>
 				</ul>
 			</div>
 		</nav>

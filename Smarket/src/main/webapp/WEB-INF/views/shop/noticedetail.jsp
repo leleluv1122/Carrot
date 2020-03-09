@@ -10,7 +10,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>딸기마켓 관리자-공지사항</title>
+<title>딸기마켓 자주묻는질문</title>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script
@@ -26,23 +26,32 @@
 <link
 	href="https://fonts.googleapis.com/css?family=Cute+Font|Poor+Story&display=swap&subset=korean"
 	rel="stylesheet">
+<style>
+div .abcc{
+	width:677px;
+	height:400px;
+	margin-left:auto;
+	margin-right:auto;
+}
+</style>
 </head>
 <body>
 	<%@ include file="../include/nav.jsp"%>
 	<div class="container">
-		<form:form method="post" modelAttribute="notice" autocomplete="off">
-			<div class="form-group">
-				<label>제목:</label>
-				<form:input path="title" class="form-control w400" required="required" />
-			</div>
-			<div class="form-group">
-				<label>내용:</label>
-				<form:input path="detail" class="form-control w4h2" required="required" />
-			</div>
-			<button type="submit" style="background-color: #F3969A;"
-				onclick="return confirm('작성 하시겠습니까?')" class="btn">작성</button>
-		</form:form>
+		<br />
+		<br />
+		<div class="abcc">
+			<h1><b>${notice.title}</b></h1><br/>
+			<span style="font-size:15px;float:right;margin-right:10px;">조회수: ${notice.click }</span><br /><br />
+			<span style="font-size: 18px;">안녕하세요 딸기에용~! 딸기마켓을 이용하다 궁금한 점이 있으셨나요?</span>  <br /><br />
+			<span style="font-size: 18px;">딸기이웃분들이 자주 궁금해하는 부분들을 '자주 묻는 질문'에서 답해드릴려고 해요~  </span>
+			<br /><br /> <br /><br /> 
+			<span style="font-size: 18px; margin-bottom:20px;">${notice.detail}</span><br /><br/>
+			
+		</div>
+		<a href="/shop/notice" style="float:right;margin-right:50px;"class="btn btn-dark">목록으로</a>
 	</div>
+
 	<%@ include file="../include/bottom.jsp"%>
 
 </body>

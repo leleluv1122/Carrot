@@ -6,17 +6,24 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import lombok.Data;
 
 @Data
 @Entity
-public class Search {
+public class Ask {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	int id;
 	
-	String name;
+	@ManyToOne
+	@JoinColumn(name = "userid")
+	User user;
+
+	String title;
+	String detail;
 	
-	Timestamp searchdate;
+	Timestamp writedate;
 }

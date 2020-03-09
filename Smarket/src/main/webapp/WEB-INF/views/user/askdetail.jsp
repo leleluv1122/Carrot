@@ -10,7 +10,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>딸기마켓 관리자-공지사항</title>
+<title>딸기마켓 내 1:1문의 상세보기</title>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script
@@ -26,23 +26,27 @@
 <link
 	href="https://fonts.googleapis.com/css?family=Cute+Font|Poor+Story&display=swap&subset=korean"
 	rel="stylesheet">
+<style>
+div .abcc {
+	width: 677px;
+	height: 400px;
+	margin-left: auto;
+	margin-right: auto;
+}
+</style>
 </head>
 <body>
 	<%@ include file="../include/nav.jsp"%>
+	<br />
 	<div class="container">
-		<form:form method="post" modelAttribute="notice" autocomplete="off">
-			<div class="form-group">
-				<label>제목:</label>
-				<form:input path="title" class="form-control w400" required="required" />
-			</div>
-			<div class="form-group">
-				<label>내용:</label>
-				<form:input path="detail" class="form-control w4h2" required="required" />
-			</div>
-			<button type="submit" style="background-color: #F3969A;"
-				onclick="return confirm('작성 하시겠습니까?')" class="btn">작성</button>
-		</form:form>
+		<br /> <br />
+		<div class="abcc">
+				<h1><b>제목: </b>${ask.title}</h1><br/>
+				<span style="font-size: 18px;"><b>문의내용: </b>${ask.detail}</span>
+				<br /><hr />
+		</div>
 	</div>
+
 	<%@ include file="../include/bottom.jsp"%>
 
 </body>

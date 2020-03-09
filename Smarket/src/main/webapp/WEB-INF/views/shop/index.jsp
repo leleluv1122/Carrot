@@ -86,12 +86,18 @@ h1 {
 	margin-right: auto;
 	display: block;
 }
+
+div .aa {
+	width: 1100px;
+	height: 700px;
+}
 </style>
 <body>
 	<%@ include file="../include/nav.jsp"%>
 	<br />
 	<div class="container">
 		<div class="aa">
+
 
 			<h1>딸기마켓 최근 상품</h1>
 			<c:forEach var="p" items="${product}">
@@ -124,8 +130,17 @@ h1 {
 								<%-- <c:if test="${cnt.product.id == p.id }"> --%>
 								<!-- <span style="margin-right: 10px;">관심 0</span> -->
 								<%-- </c:if> --%>
-								<span style="margin-right: 10px;">댓글 0</span> <span>조회수
-									${p.click}</span>
+								<span>조회수 ${p.click}</span>
+
+								<c:forEach var="c" items="${cnt}">
+									<c:choose>
+										<c:when test="${p.id == c.id}">
+											<span style="margin-left: 2px;">관심: ${c.cnt}</span>
+										</c:when>
+										<c:when test="${c.id == null}">관심: 0</c:when>
+									</c:choose>
+								</c:forEach>
+
 							</div>
 						</div>
 
@@ -135,10 +150,24 @@ h1 {
 				</c:forEach>
 			</c:forEach>
 
+
+
 		</div>
 
+		<div class="container">${weather_info}</div>
+
+		<script>
+			$(document).ready(function() {
+				drawTable();
+			})
+
+			function drawTable() {
+				$(".tbl_weather").attr("class", "table");
+			}
+		</script>
+
 		<%-- <c:forEach var="cnt" items="${cnt}"> --%>
-			<%-- <span>${cnt}</span> --%>
+		<%-- <span>${cnt}</span> --%>
 		<%-- </c:forEach> --%>
 	</div>
 	<%@ include file="../include/bottom.jsp"%>

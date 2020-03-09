@@ -10,7 +10,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>딸기마켓 관리자-공지사항</title>
+<title>딸기마켓 내 1:1문의목록</title>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script
@@ -29,20 +29,34 @@
 </head>
 <body>
 	<%@ include file="../include/nav.jsp"%>
+	<br />
 	<div class="container">
-		<form:form method="post" modelAttribute="notice" autocomplete="off">
-			<div class="form-group">
-				<label>제목:</label>
-				<form:input path="title" class="form-control w400" required="required" />
-			</div>
-			<div class="form-group">
-				<label>내용:</label>
-				<form:input path="detail" class="form-control w4h2" required="required" />
-			</div>
-			<button type="submit" style="background-color: #F3969A;"
-				onclick="return confirm('작성 하시겠습니까?')" class="btn">작성</button>
-		</form:form>
+		<a href="/user/ask" class="btn btn-dark" style="float:right; margin-right:80px;">1:1 문의하기</a><br />
+		<table style="width: 85%; margin-left: auto; margin-right: auto;"
+			class="table table-hover">
+			<thead>
+				<tr style="text-align: center;">
+					<th>제목</th>
+					<th>작성일</th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:if test="${acnt != 0}">
+					<c:forEach var="a" items="${asklist}">
+						<tr style="text-align: center;">
+							<td><a href="/user/askdetail/${a.id}">${a.title}</a></td>
+							<td><span style="margin-left: 30px; font-size: 16px;"><fmt:formatDate
+									value="${a.writedate}" pattern="yyyy.MM.dd HH:mm:ss" /></span></td>
+						</tr>
+					</c:forEach>
+				</c:if>
+				<c:if test="${acnt == 0}">
+					<td colspan="2" align="center" style="height: 70px;">작성된 1:1 문의글이 업습니다</td>
+				</c:if>
+			</tbody>
+		</table>
 	</div>
+
 	<%@ include file="../include/bottom.jsp"%>
 
 </body>

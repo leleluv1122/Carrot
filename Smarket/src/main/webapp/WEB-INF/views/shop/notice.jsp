@@ -10,7 +10,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>딸기마켓 관리자-공지사항</title>
+<title>딸기마켓 자주묻는질문</title>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script
@@ -30,20 +30,33 @@
 <body>
 	<%@ include file="../include/nav.jsp"%>
 	<div class="container">
-		<form:form method="post" modelAttribute="notice" autocomplete="off">
-			<div class="form-group">
-				<label>제목:</label>
-				<form:input path="title" class="form-control w400" required="required" />
-			</div>
-			<div class="form-group">
-				<label>내용:</label>
-				<form:input path="detail" class="form-control w4h2" required="required" />
-			</div>
-			<button type="submit" style="background-color: #F3969A;"
-				onclick="return confirm('작성 하시겠습니까?')" class="btn">작성</button>
-		</form:form>
+		<h1 style="margin:30"><b>자주묻는질문/공지사항</b></h1>
+		<table class="table table-hover"
+			style="width: 85%; margin-left: auto; margin-right: auto;">
+			<thead>
+				<tr style="text-align: center;">
+					<th>제목</th>
+					<th>작성일</th>
+					<th>작성자</th>
+					<th>조회수</th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach var="n" items="${notice}">
+					<tr style="text-align: center;">
+
+						<td><a href="/shop/noticedetail/${n.id}">${n.title}</a></td>
+						<td><span style="margin-left: 30px; font-size: 16px;"><fmt:formatDate
+									value="${n.writedate}" pattern="yyyy.MM.dd HH:mm:ss" /></span></td>
+						<td>관리자</td>
+						<td>${n.click}</td>
+
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
+
 	</div>
 	<%@ include file="../include/bottom.jsp"%>
-
 </body>
 </html>

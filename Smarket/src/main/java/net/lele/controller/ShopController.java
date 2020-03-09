@@ -10,16 +10,19 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import net.lele.domain.Interest_product;
 import net.lele.domain.Search;
 import net.lele.model.UserRegistrationModel;
 import net.lele.service.CategoryService;
 import net.lele.service.Interest_productService;
+import net.lele.service.NoticeService;
 import net.lele.service.ProductService;
 import net.lele.service.Product_imageService;
 import net.lele.service.SearchService;
 import net.lele.service.UserService;
+import net.lele.utils.WebCrawler;
 
 @Controller
 public class ShopController {
@@ -35,21 +38,25 @@ public class ShopController {
 	SearchService searchService;
 	@Autowired
 	Interest_productService ips;
+	@Autowired
+	NoticeService noticeService;
 
 	@RequestMapping({ "/", "shop/index" })
 	public String index(Model model) throws Exception {
+		WebCrawler crawler = new WebCrawler();
+		model.addAttribute("weather_info", crawler.getWeatherInfo());
+
 		model.addAttribute("category", categoryService.findAll());
 		model.addAttribute("product", productService.findByProductlimit());
 		model.addAttribute("product_image", product_imageService.findByProductidgroup());
 
-		/* model.addAttribute("cnt", ips.countByproductidgroup()); */
+		model.addAttribute("cnt", ips.countByproductidgroup());
 
+		/* List<Object[]> results = ips.countByproductidgroup(); */
 		/*
-		 * List<Object[]> results = ipr.countByproductidgroup(); for (Object[] result :
-		 * results) { int id = ((Number) result[1]).intValue(); int count = ((Number)
-		 * result[1]).intValue(); model.addAttribute("cnt", result); }
-		 * 
-		 * model.addAttribute("cnt", ipr.countByproductidgroup());
+		 * for (Object[] result : results) { int id = ((Number) result[1]).intValue();
+		 * int count = ((Number) result[1]).intValue(); model.addAttribute("cnt",
+		 * result); }
 		 */
 
 		return "shop/index";
@@ -83,6 +90,10 @@ public class ShopController {
 		model.addAttribute("idd", id);
 		model.addAttribute("category", categoryService.findAll());
 		model.addAttribute("product", productService.findByCategoryIdOrderByIdDesc(id));
+		/*
+		 * model.addAttribute("pcnt",
+		 * ips.countByProductId(productService.findById(id)));
+		 */
 		model.addAttribute("product_image", product_imageService.findByProductidgroup());
 		return "shop/category";
 	}
@@ -112,8 +123,8 @@ public class ShopController {
 		return "shop/users";
 	}
 
-	@RequestMapping(value = "shop/search/{word}")
-	public String search(@PathVariable("word") String word, Model model) throws Exception {
+	@RequestMapping(value = "shop/search")
+	public String search(@RequestParam("word") String word, Model model) throws Exception {
 		Search s = new Search();
 		s.setName(word);
 		searchService.save(s);
@@ -140,4 +151,18 @@ public class ShopController {
 		return "redirect:/shop/product/{id}";
 	}
 
+	@RequestMapping("shop/notice")
+	public String notice(Model model) {
+		model.addAttribute("category", categoryService.findAll());
+		model.addAttribute("notice", noticeService.findByOrderByIdDesc());
+		return "shop/notice";
+	}
+
+	@RequestMapping("shop/noticedetail/{id}")
+	public String noticedetail(@PathVariable("id") int id, Model model) throws Exception {
+		noticeService.clickupdate(id);
+		model.addAttribute("notice", noticeService.findById(id));
+		model.addAttribute("category", categoryService.findAll());
+		return "shop/noticedetail";
+	}
 }
