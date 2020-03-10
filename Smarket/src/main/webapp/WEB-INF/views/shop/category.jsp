@@ -115,7 +115,22 @@ div .d {
 							</div> --%>
 
 							<div class="name">
-								<!-- <span style="margin-right: 10px;">관심 0</span> --> <!-- <span style="margin-right: 10px;">댓글 0</span> -->
+								<c:forEach var="c" items="${cnt}">
+									<c:choose>
+										<c:when test="${p.id == c.id}">
+											<span style="margin-left: 2px;">관심: ${c.cnt}</span>
+										</c:when>
+										<c:when test="${c.id == null}">관심: 0</c:when>
+									</c:choose>
+								</c:forEach>
+								<c:forEach var="c" items="${commentcnt}">
+									<c:choose>
+										<c:when test="${p.id == c.id}">
+											<span style="margin-left: 2px;">댓글: ${c.cnt}</span>
+										</c:when>
+										<c:when test="${c.id == null}">댓글: 0</c:when>
+									</c:choose>
+								</c:forEach>
 								<span>조회수 ${p.click}</span>
 							</div>
 						</div>

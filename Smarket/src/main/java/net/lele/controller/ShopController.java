@@ -16,6 +16,7 @@ import net.lele.domain.Interest_product;
 import net.lele.domain.Search;
 import net.lele.model.UserRegistrationModel;
 import net.lele.service.CategoryService;
+import net.lele.service.CommentService;
 import net.lele.service.Interest_productService;
 import net.lele.service.NoticeService;
 import net.lele.service.ProductService;
@@ -40,6 +41,8 @@ public class ShopController {
 	Interest_productService ips;
 	@Autowired
 	NoticeService noticeService;
+	@Autowired
+	CommentService commentService;
 
 	@RequestMapping({ "/", "shop/index" })
 	public String index(Model model) throws Exception {
@@ -51,6 +54,7 @@ public class ShopController {
 		model.addAttribute("product_image", product_imageService.findByProductidgroup());
 
 		model.addAttribute("cnt", ips.countByproductidgroup());
+		model.addAttribute("commentcnt", commentService.countByProductGroup());
 
 		/* List<Object[]> results = ips.countByproductidgroup(); */
 		/*
@@ -58,7 +62,7 @@ public class ShopController {
 		 * int count = ((Number) result[1]).intValue(); model.addAttribute("cnt",
 		 * result); }
 		 */
-
+		model.addAttribute("scnt", searchService.Searchcount());
 		return "shop/index";
 	}
 
@@ -94,6 +98,8 @@ public class ShopController {
 		 * model.addAttribute("pcnt",
 		 * ips.countByProductId(productService.findById(id)));
 		 */
+		model.addAttribute("cnt", ips.countByproductidgroup());
+		model.addAttribute("commentcnt", commentService.countByProductGroup());
 		model.addAttribute("product_image", product_imageService.findByProductidgroup());
 		return "shop/category";
 	}
@@ -109,6 +115,7 @@ public class ShopController {
 		model.addAttribute("category", categoryService.findAll());
 		model.addAttribute("p", productService.findById(id));
 		model.addAttribute("pi", product_imageService.findByProductid(id));
+		model.addAttribute("ccnt", commentService.countByProductId(id));
 		return "shop/product";
 	}
 
@@ -120,15 +127,18 @@ public class ShopController {
 		model.addAttribute("product", productService.findByUserIdOrderByIdDesc(id));
 		model.addAttribute("pcount", productService.countByUserId(id));
 		model.addAttribute("product_image", product_imageService.findByProductidgroup());
+		model.addAttribute("commentcnt", commentService.countByProductGroup());
+		model.addAttribute("cnt", ips.countByproductidgroup());
 		return "shop/users";
 	}
 
 	@RequestMapping(value = "shop/search")
 	public String search(@RequestParam("word") String word, Model model) throws Exception {
-		Search s = new Search();
-		s.setName(word);
-		searchService.save(s);
-
+		if (word != "") {
+			Search s = new Search();
+			s.setName(word);
+			searchService.save(s);
+		}
 		model.addAttribute("category", categoryService.findAll());
 		model.addAttribute("list", productService.findByTitleContains(word));
 		model.addAttribute("product_image", product_imageService.findByProductidgroup());
@@ -140,6 +150,12 @@ public class ShopController {
 			throws Exception {
 		ips.save(i);
 		return "redirect:/shop/product/{id}";
+	}
+	
+	@RequestMapping(value="shop/pdelete/{id}")
+	public String pdelete(@PathVariable("id") int id, Model model) {
+		productService.deleteById(id);
+		return "redirect:/shop/index";
 	}
 
 	@RequestMapping(value = "shop/delete/{id}")

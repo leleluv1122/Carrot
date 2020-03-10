@@ -22,6 +22,8 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 	
 	int countByUserId(int id);
 	
+	void deleteById(int id);
+	
 	@Query(nativeQuery = true, value = "select * from Product p ORDER BY id desc Limit 8")
 	List<Product> findByProductlimit();
 }

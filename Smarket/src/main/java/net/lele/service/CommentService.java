@@ -2,6 +2,7 @@ package net.lele.service;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,11 +15,19 @@ public class CommentService {
 	@Autowired
 	CommentRepository commentRepository;
 	
+	public int countByProductId(int id) {
+		return commentRepository.countByProductId(id);
+	}
+	
+	public List<Map<Integer, Integer>> countByProductGroup(){
+		return commentRepository.countByProductGroup();
+	}
+	
 	public List<Comment> findByProductId(int pid){
 		return commentRepository.findByProductId(pid);
 	}
 	
-	public void save(Comment c) {
+	public int save(Comment c) {
 		Comment co = new Comment();
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 		
@@ -28,6 +37,10 @@ public class CommentService {
 		co.setWritedate(timestamp);
 		
 		commentRepository.save(co);
+		
+		int cc = co.getId();
+		
+		return cc;
 	}
 	
 	public void delete(int id) {

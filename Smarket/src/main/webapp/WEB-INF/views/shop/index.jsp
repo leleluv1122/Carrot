@@ -91,14 +91,38 @@ div .aa {
 	width: 1100px;
 	height: 700px;
 }
+
+p .bb {
+	width: 100%;
+	height: 250px;
+	align:center;
+	/* margin-left:auto;
+	margin-right:auto;
+	display:block; */
+	/* text-align: center;
+	align:center; */
+}
+
+.child {
+	line-height: 20px;
+	display: table-cell;
+	font-size:15px;
+}
 </style>
 <body>
 	<%@ include file="../include/nav.jsp"%>
 	<br />
 	<div class="container">
+		<hr />
+		<div class="bb" style="margin-left:420px;">
+			<span class="child"><b>인기검색어</b></span><br />
+			<c:forEach var="s" items="${scnt}">
+				<a class="child" href="/shop/search?word=${s.name}"><span style="margin-left:15px;">${s.name}</span></a>
+				<br />
+			</c:forEach>
+		</div>
+		<hr />
 		<div class="aa">
-
-
 			<h1>딸기마켓 최근 상품</h1>
 			<c:forEach var="p" items="${product}">
 				<c:forEach var="pi" items="${product_image}">
@@ -140,6 +164,15 @@ div .aa {
 										<c:when test="${c.id == null}">관심: 0</c:when>
 									</c:choose>
 								</c:forEach>
+								<c:forEach var="c" items="${commentcnt}">
+									<c:choose>
+										<c:when test="${p.id == c.id}">
+											<span style="margin-left: 2px;">댓글: ${c.cnt}</span>
+										</c:when>
+										<c:when test="${c.id == null}">댓글: 0</c:when>
+									</c:choose>
+								</c:forEach>
+								
 
 							</div>
 						</div>

@@ -23,6 +23,10 @@ public class ProductService {
 		productRepository.save(p);
 	}
 	
+	public void deleteById(int id) {
+		productRepository.deleteById(id);
+	}
+	
 	public Product findById(int id) {
 		return productRepository.findById(id);
 	}

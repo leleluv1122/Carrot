@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -33,7 +34,7 @@ public class CommentController {
 
 	@RequestMapping("/insert") // 댓글 작성
 	@ResponseBody
-	private void mCommentServiceInsert(@RequestParam int pid, @RequestParam String content, @RequestParam int uid)
+	private int mCommentServiceInsert(@RequestParam int pid, @RequestParam String content, @RequestParam int uid)
 			throws Exception {
 		
 		Comment comment = new Comment();
@@ -42,6 +43,14 @@ public class CommentController {
 		comment.setUser(userService.findById(uid));
 		
 		commentService.save(comment);
+		return 1;
+	}
+	
+	@RequestMapping("/delete/{id}")
+	@ResponseBody
+	private int mCommentServiceDelete(@PathVariable int id) throws Exception {
+		commentService.delete(id);
+		return 1;
 	}
 
 }

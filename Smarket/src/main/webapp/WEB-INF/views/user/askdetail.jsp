@@ -29,7 +29,13 @@
 <style>
 div .abcc {
 	width: 677px;
-	height: 400px;
+	height: 200px;
+	margin-left: auto;
+	margin-right: auto;
+}
+div .ddd{
+	width: 677px;
+	height: 100px;
 	margin-left: auto;
 	margin-right: auto;
 }
@@ -41,12 +47,34 @@ div .abcc {
 	<div class="container">
 		<br /> <br />
 		<div class="abcc">
-				<h1><b>제목: </b>${ask.title}</h1><br/>
-				<span style="font-size: 18px;"><b>문의내용: </b>${ask.detail}</span>
-				<br /><hr />
+			<h1>
+				<b>제목: </b>${ask.title}</h1>
+			<br /> <span style="font-size: 18px;"><b>문의내용: </b>${ask.detail}</span>
+			<br />
+			<hr />
+		</div>
+
+		<!--  댓글  -->
+		<sec:authorize access="hasRole('ROLE_ADMIN')">
+			<div class="ddd">
+				<label for="content">comment</label>
+				<form name="answerInsertForm">
+					<div class="input-group">
+						<input type="hidden" name="ask" value="${idd}" /> <input
+							type="text" class="form-control w400" id="content" name="content"
+							placeholder="답변을 입력하세요."> <span class="input-group-btn">
+							<button class="btn btn-dark" type="button" name="answerInsertBtn">등록</button>
+						</span>
+					</div>
+				</form>
+			</div>
+		</sec:authorize>
+
+		<div class="ddd" style="margin-bottom: 100px;">
+			<div class="answerList"></div>
 		</div>
 	</div>
-
+	<%@ include file="AnswerS.jsp"%>
 	<%@ include file="../include/bottom.jsp"%>
 
 </body>

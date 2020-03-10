@@ -162,6 +162,7 @@ public class UserController {
 	public String askdetail(@PathVariable("id") int id, Model model) throws Exception{
 		model.addAttribute("category", categoryService.findAll());
 		model.addAttribute("ask", askService.findById(id));
+		model.addAttribute("idd", id);
 		return "user/askdetail";
 	}
 

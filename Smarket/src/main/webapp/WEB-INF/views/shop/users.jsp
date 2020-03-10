@@ -100,9 +100,10 @@ div .d {
 	padding: 5px;
 	border-bottom: 1px solid #e9ecef;
 }
-.noimg{
-	width:30px;
-	height:30px;
+
+.noimg {
+	width: 30px;
+	height: 30px;
 	border-radius: 8px;
 }
 </style>
@@ -112,7 +113,9 @@ div .d {
 	<div class="container">
 
 		<div class="ab">
-			<label style="margin-left: 10px;"><img src="/images/blank-profile-picture-973460_1280.png" class="noimg"></label> <span
+			<label style="margin-left: 10px;"><img
+				src="/images/blank-profile-picture-973460_1280.png" class="noimg"></label>
+			<span
 				style="margin-left: 10px; font-size: 22px; font-weight: 600; line-height: 1.5; letter-spacing: -0.6px; color: #212529;"><b>${user.nickname}</b></span>
 			<br /> <span style="margin-left: 50px; font-size: 17px;"> <c:choose>
 					<c:when test="${fn:length(user.address) gt 8}">
@@ -152,8 +155,10 @@ div .d {
 					<c:when test="${pcount == 0 }">
 						<div class="empty" style="margin-top: 20px;">
 							<span
-								style="margin-top: 20px; margin-left: 20px;font-size: 20px;">게시물이
-								없습니다</span> <br /><a href="/user/write" style=" margin-left: 20px;font-size:18px;color:black;">중고제품 판매하러 가기</a>
+								style="margin-top: 20px; margin-left: 20px; font-size: 20px;">게시물이
+								없습니다</span> <br /> <a href="/user/write"
+								style="margin-left: 20px; font-size: 18px; color: black;">중고제품
+								판매하러 가기</a>
 						</div>
 					</c:when>
 					<c:otherwise>
@@ -183,8 +188,23 @@ div .d {
 										</div>
 
 										<div class="name">
-											<!-- <span style="margin-right: 10px;">관심 0</span> --> <span style="margin-right: 10px;">댓글
-												0</span><span>조회수 ${p.click}</span>
+											<c:forEach var="c" items="${cnt}">
+												<c:choose>
+													<c:when test="${p.id == c.id}">
+														<span style="margin-left: 2px;">관심: ${c.cnt}</span>
+													</c:when>
+													<c:when test="${c.id == null}">관심: 0</c:when>
+												</c:choose>
+											</c:forEach>
+											<c:forEach var="c" items="${commentcnt}">
+												<c:choose>
+													<c:when test="${p.id == c.id}">
+														<span style="margin-left: 2px;">댓글: ${c.cnt}</span>
+													</c:when>
+													<c:when test="${c.id == null}">댓글: 0</c:when>
+												</c:choose>
+											</c:forEach>
+											<span>조회수 ${p.click}</span>
 										</div>
 									</div>
 

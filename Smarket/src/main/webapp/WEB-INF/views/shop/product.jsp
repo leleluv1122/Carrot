@@ -11,10 +11,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>딸기마켓 제품보기</title>
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery.min.js"></script>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <link
 	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
 	rel="stylesheet" media="screen">
@@ -159,6 +159,8 @@ div .z {
 				style="height: 15px; margin-left: 5px; font-size: 20px;">${p.click}</span>
 			<label style="margin-left: 70px; font-size: 18px;">관심</label><span
 				style="height: 15px; margin-left: 5px; font-size: 20px;">${pcnt}</span>
+			<label style="margin-left: 70px; font-size: 18px;">댓글</label><span
+				style="height: 15px; margin-left: 5px; font-size: 20px;">${ccnt}</span>
 			<br />
 			<hr />
 			<sec:authorize access="not authenticated">
@@ -187,14 +189,23 @@ div .z {
 						class="glyphicon glyphicon-star"
 						style="color: red; margin-right: 5px;" aria-hidden="true"></span>관심상품</a>
 				</c:if>
-
-
+			</sec:authorize>
+			<a href="/shop/category/${p.category.id}" class="btn btn-dark">목록으로</a>
+			<sec:authorize access="authenticated">
 				<a href="#" style="margin: 10;" class="btn btn-dark"> <span
 					class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
 					채팅보내기
 				</a>
 
+				<c:if test="${p.user.id==currentid}">
+					<a href="/shop/pdelete/${p.id}"
+						onclick="if(!confirm('상품을 삭제 하시겠습니까?')){return false;}"
+						class="btn btn-dark">삭제</a>
+				</c:if>
+
+
 			</sec:authorize>
+			
 
 			<!--  댓글  -->
 			<div class="container">
@@ -215,16 +226,22 @@ div .z {
 				</form>
 			</div>
 			<sec:authorize access="not authenticated">
-				<span style="font-size:13px;">회원들만 댓글을 볼 수 있습니다</span><br />
-				
-				<a href="/shop/login"  style="font-family: 'Poor Story', cursive; font-size: 18px;color:black;">로그인 하러가기</a><br />
-				<a href="/shop/register"  style="font-family: 'Poor Story', cursive; font-size: 18px;color:black;">회원가입 하러가기</a>
+				<span style="font-size: 13px;">회원들만 댓글을 볼 수 있습니다</span>
+				<br />
+
+				<a href="/shop/login"
+					style="font-family: 'Poor Story', cursive; font-size: 18px; color: black;">로그인
+					하러가기</a>
+				<br />
+				<a href="/shop/register"
+					style="font-family: 'Poor Story', cursive; font-size: 18px; color: black;">회원가입
+					하러가기</a>
 			</sec:authorize>
-			<div class="container" style="margin-bottom:200px;">
+			<div class="container" style="margin-bottom: 200px;">
 				<div class="commentList"></div>
 			</div>
-			
-			
+
+
 		</div>
 		<br /> <br />
 		<hr />
