@@ -72,6 +72,28 @@ table {
 							<form:input path="email" class="form-control w300" />
 							<form:errors path="email" class="error" />
 						</div>
+						<%-- <div class="form-group">
+							<label>내가사는지역:</label>
+							<form:select path="state" class="form-control w300"
+								required="required">
+								<form:option value="0" label="-----------지역을 골라주세요-----------" />
+								<c:forEach var="state" items="${state}">
+									<form:option value="${state.id}" label="${state.name}" />
+								</c:forEach>
+							</form:select>
+						</div>
+						<div class="layer form-group">
+							<form:select path="city" class="form-control w300"
+								required="required">
+								<form:option value="0" label="-----------동네를 골라주세요-----------" />
+								<c:forEach var="city" items="${city}">
+									<c:if test="${city.state.id == '1'}">
+										<form:option value="${city.id}" label="${city.name}" />
+									</c:if>
+								</c:forEach>
+							</form:select>
+						</div> --%>
+
 						<div class="form-group">
 							<label>전화번호:</label>
 							<form:input path="phone" class="form-control w300" />
@@ -173,6 +195,6 @@ table {
 		</table>
 	</div>
 
-	<%@ include file="../include/bottom.jsp" %>
+	<%@ include file="../include/bottom.jsp"%>
 </body>
 </html>

@@ -11,31 +11,14 @@ import lombok.Data;
 
 @Data
 @Entity
-@org.hibernate.annotations.DynamicUpdate
-public class User {
+public class City {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	int id;
-	
-	int enable;
-	String userId;
 
-	String password;
-	String userType;
-	String name;
-	String nickname;
-	String email;
-	String phone;
-	String address;
-	String address_detail;
-	int postcode;
-	String addrplus;
-	
 	@ManyToOne
 	@JoinColumn(name = "stateid")
 	State state;
 
-	@ManyToOne
-	@JoinColumn(name = "cityid")
-	City city;
+	String name;
 }

@@ -25,6 +25,10 @@ public class UserService {
 		return user;
 	}
 	
+	public User findByUserId(String userId) {
+		return userRepository.findByUserId(userId);
+	}
+	
 	public User findById(int id) {
 		return userRepository.findById(id);
 	}
@@ -60,7 +64,16 @@ public class UserService {
 		user.setPostcode(userModel.getPostcode());
 		user.setAddrplus(userModel.getAddrplus());
 		user.setNickname(userModel.getNickname());
+		
 		return user;
+	}
+	
+	public void update(User user) {
+		User u = new User();
+		u.setState(user.getState());
+		u.setCity(user.getCity());
+		
+		userRepository.save(u);
 	}
 
 	public void save(UserRegistrationModel userModel) {

@@ -146,14 +146,11 @@
 			<version>1.8.3</version>
 		</dependency>
 
-		<!-- 정적 method 실시간반영 -->
+		<!-- XML -->
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-devtools</artifactId>
-			<scope>true</scope>
+			<groupId>com.fasterxml.jackson.dataformat</groupId>
+			<artifactId>jackson-dataformat-xml</artifactId>
 		</dependency>
-
-
 	</dependencies>
 
 	<build>

@@ -39,6 +39,10 @@ public class ProductService {
 		return productRepository.findByUserId(id);
 	}
 	
+	public List<Product> findByOrderByClickDesc(){
+		return productRepository.findTop12ByOrderByClickDesc();
+	}
+	
 	public List<Product> findByTitleContains(String title){
 		return productRepository.findByTitleContains(title);
 	}

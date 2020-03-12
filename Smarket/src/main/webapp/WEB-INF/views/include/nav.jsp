@@ -51,29 +51,30 @@
 				<ul class="navbar-nav mr-auto">
 					<sec:authorize access="not authenticated">
 						<li class="nav-item" style="margin-top: 10px;"><a
-							href="/shop/login"  class="nav-item"
+							href="/shop/login" class="nav-item"
 							style="font-family: 'Poor Story', cursive; font-size: 13px; color: black; margin: 5px;">로그인</a></li>
 						<li class="nav-item" style="margin-top: 10px;"><a
-							href="/shop/register"  class="nav-item"
+							href="/shop/register" class="nav-item"
 							style="font-family: 'Poor Story', cursive; color: black; font-size: 13px; margin: 5px;">회원가입</a></li>
 					</sec:authorize>
 					<sec:authorize access="authenticated">
 						<sec:authentication property="user.id" var="currentid" />
 						<li class="nav-item" style="margin-top: 10px;"><a
-							href="/shop/users/${currentid}"  class="nav-item"
+							href="/shop/users/${currentid}" class="nav-item"
 							style="font-family: 'Poor Story', cursive; color: black; font-size: 13px;"><span
 								class="glyphicon glyphicon-user" style="margin-right: 3px;"></span>내정보</a></li>
-						<li class="nav-item" style="margin-top: 10px;"><a  class="nav-item"
+						<li class="nav-item" style="margin-top: 10px;"><a
+							class="nav-item"
 							style="font-family: 'Poor Story', cursive; color: black; font-size: 13px; margin: 3px;"
 							href="${R}user/logout_processing">로그아웃</a></li>
 						<li class="nav-item" style="margin-top: 10px;"><a
-							href="/user/interest"  class="nav-item"
+							href="/user/interest" class="nav-item"
 							style="font-family: 'Poor Story', cursive; color: black; font-size: 13px; margin: 3px; color: black;">관심상품</a></li>
 						<li class="nav-item" style="margin-top: 10px;"><a
-							href="/user/write"  class="nav-item"
+							href="/user/write" class="nav-item"
 							style="font-family: 'Poor Story', cursive; color: black; font-size: 13px; margin: 3px; color: black;">글쓰기</a></li>
 						<li class="nav-item" style="margin-top: 10px;"><a
-							href="/user/location"  class="nav-item"
+							href="/user/location" class="nav-item"
 							style="font-family: 'Poor Story', cursive; color: black; font-size: 13px; margin: 3px; color: black;">동네인증</a></li>
 					</sec:authorize>
 
@@ -102,6 +103,8 @@
 
 		<div>
 			<ul>
+				<li><a href="${R}shop/hotproduct"
+					style="color: red; font-size: 1.5em; margin-right: 10px;">인기상품</a></li>
 				<c:forEach var="c" items="${category}">
 					<li><a href="${R}shop/category/${c.id}"
 						style="color: black; font-size: 1.5em; margin-right: 10px;">${c.name}</a></li>

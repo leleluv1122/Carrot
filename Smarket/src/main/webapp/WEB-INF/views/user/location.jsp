@@ -60,6 +60,19 @@
 			consol.log("Geolocation을 지원하지 않는 브라우저 입니다.");
 		}
 	});
+	/* function Insert(){
+		function getLocation(position) {
+			var latitud = position.coords.latitude;
+			var longitude = position.coords.longitude;
+			
+			$.ajax({
+				url : '/user/location',
+				type : 'post',
+				data : 
+			})
+			
+		}
+	} */
 </script>
 <script type="text/javascript">
 	var speed = 500
@@ -92,7 +105,8 @@ div #map {
 
 span {
 	font-size: 25px;
-	margin-left: auto; margin-right : auto;
+	margin-left: auto;
+	margin-right: auto;
 	display: block;
 	margin-right: auto;
 }
@@ -104,9 +118,96 @@ span {
 	<div class="container">
 		<div id="map"></div>
 
-		<span>내가 사는 동네가 맞나요?</span><br /> <span>맞으면 인증버튼을 눌러주세요!</span><br />
-		<button id="check_btn" class="btn ba" type="submit"
-			style="font-size: 20px; margin: 10; color: black;">인증하기</button>
+
+		<form action="/user/location" method="post">
+			<div class="row">
+				<div class="form-group">
+					<!-- onchange="setState(this)" -->
+					<label>내가사는지역:</label> <select id="state" name="state"
+						class="form-control w300" required="required">
+						<option value="">-----------지역을 골라주세요-----------</option>
+						<c:forEach var="state" items="${state}">
+							<option value="${state.id}">${state.name}</option>
+						</c:forEach>
+					</select>
+
+				</div>
+				<!-- <div class="wrap"></div> -->
+				<div class="wrap">
+					<label>내가사는동네:</label> <br /> <select id="city" name="city"
+						class="form-control w300" required="required">
+						<option value="">-----------동네를 골라주세요-----------</option>
+						<%-- <c:forEach var="city" items="${city}">
+							<option value="${city.id}" label="${city.name}" />
+						</c:forEach> --%>
+					</select>
+					<script>
+						$(
+								function() {
+									$('#state')
+											.change(
+													function() {
+														//alert($(this).serialize());
+														var state = $(this)
+																.serialize();
+														$
+																.ajax({
+																	url : '/user/loca',
+																	type : 'post',
+																	data : state,
+																	success : function(
+																			data) {
+																		var searchArr = $(
+																				'#city')
+																				.find(
+																						"option");
+																		for ( var i in data) {
+																			var $id = data[i].id;
+																			var $name = data[i].name;
+
+																			searchArr += "<option value=" +$id + ">"
+																					+ $name
+																					+ "</option>";
+
+																		}
+																		document
+																				.getElementById("city").innerHTML = searchArr;
+																		/* var tb = $("<table />");
+																		for(var i in data){
+																			var $id = data[i].id;
+																			var $name = data[i].name;
+																			
+																			var row = $("<tr />").append(
+																				$("<td />").text($id),
+																				$("<td />").text($name)
+																			);
+																			tb.append(row);
+																		}
+																		$(".wrap").append(tb); */
+																	}
+																});
+													});
+								})
+					</script>
+				</div>
+			</div>
+
+			<span>내가 사는 동네가 맞나요?</span><br /> <span>맞으면 인증버튼을 눌러주세요!</span><br />
+			<%-- <c:if test="${cnt != 0 }">
+				<a href="" onclick="if(!confirm('이미 등록된 동네가 있습니다.')){return false;}"
+					id="check_btn" style="font-size: 20px; margin: 10; color: black;"
+					class="btn ba"> 
+					인증하기
+				</a>
+			</c:if>
+			<c:if test="${cnt == 0}"> --%>
+				<button id="check_btn" class="btn ba" type="submit"
+					onclick="return confirm('인증 하시겠습니까?')"
+					style="font-size: 20px; margin: 10; color: black;">인증하기</button>
+			<%-- </c:if> --%>
+		</form>
+
+
 	</div>
 
 

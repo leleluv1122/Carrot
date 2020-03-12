@@ -95,7 +95,7 @@ div .aa {
 p .bb {
 	width: 100%;
 	height: 250px;
-	align:center;
+	/* align: center; */
 	/* margin-left:auto;
 	margin-right:auto;
 	display:block; */
@@ -106,7 +106,11 @@ p .bb {
 .child {
 	line-height: 20px;
 	display: table-cell;
-	font-size:15px;
+	font-size: 15px;
+}
+
+.itemm {
+	display: none;
 }
 </style>
 <body>
@@ -114,13 +118,35 @@ p .bb {
 	<br />
 	<div class="container">
 		<hr />
-		<div class="bb" style="margin-left:420px;">
-			<span class="child"><b>인기검색어</b></span><br />
+		<span class="child" style=""><b>인기검색어</b></span><br />
+		<!-- <button type="button" class="btn orderOpne_bnt" style="color: black;">
+			<span class="glyphicon glyphicon-chevron-down" style="margin: 4px;"></span>
+		</button>
+		<script>
+			$(".orderOpne_bnt").click(function() {
+				$(".itemm").slideDown();
+				$(".orderOpne_bnt").slideUp();
+			});
+		</script>
+		<div class="itemm">
+			<button type="button" class="btn cancel_btn">
+				<span class="glyphicon glyphicon-chevron-up"
+					style="color: black; margin: 4px;"></span>닫기
+			</button>
+			<script>
+				$(".cancel_btn").click(function() {
+					$(".itemm").slideUp();
+					$(".orderOpne_bnt").slideDown();
+				});
+			</script> -->
+		<div class="ba">
 			<c:forEach var="s" items="${scnt}">
-				<a class="child" href="/shop/search?word=${s.name}"><span style="margin-left:15px;">${s.name}</span></a>
-				<br />
+				<a class="child btn-default" href="/shop/search?word=${s.name}"
+					style="border: solid 0.5px grey; border-radius: 8px;"><span
+					style="margin-left: 15px; margin-right: 15px;">${s.name}</span></a>
 			</c:forEach>
 		</div>
+		<!-- </div> -->
 		<hr />
 		<div class="aa">
 			<h1>딸기마켓 최근 상품</h1>
@@ -143,6 +169,10 @@ p .bb {
 												</c:out>
 											</c:otherwise>
 										</c:choose></b></span>
+							</div>
+							<div>
+								<span style="margin: 2; font-size: 15px; color: #868e96;">${p.user.state.name}
+									${p.user.city.name}</span>
 							</div>
 							<div class="d">
 								<span style="font-size: 15px;"><b><fmt:formatNumber
@@ -172,7 +202,7 @@ p .bb {
 										<c:when test="${c.id == null}">댓글: 0</c:when>
 									</c:choose>
 								</c:forEach>
-								
+
 
 							</div>
 						</div>

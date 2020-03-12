@@ -182,6 +182,14 @@ div .d {
 														</c:otherwise>
 													</c:choose></b></span>
 										</div>
+										<div>
+											<%-- <c:forEach var="l" items="${loca}">
+												<c:if test="${l.user.id == p.user.id }"> --%>
+													<span style="margin: 2; font-size: 15px; color: #868e96;">${p.user.state.name}
+														${p.user.city.name}</span>
+												<%-- </c:if>
+											</c:forEach> --%>
+										</div>
 										<div class="d">
 											<span style="font-size: 15px;"><b><fmt:formatNumber
 														value="${p.price}" pattern="###,###,###" />원</b></span>

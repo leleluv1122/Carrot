@@ -12,20 +12,28 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import net.lele.domain.Ask;
 import net.lele.domain.Category;
+import net.lele.domain.City;
 import net.lele.domain.Product;
 import net.lele.domain.Product_image;
+import net.lele.domain.State;
 import net.lele.domain.User;
 import net.lele.repository.ProductRepository;
+import net.lele.repository.UserRepository;
 import net.lele.service.AskService;
 import net.lele.service.CategoryService;
+import net.lele.service.CityService;
 import net.lele.service.Interest_productService;
 import net.lele.service.ProductService;
 import net.lele.service.Product_imageService;
+import net.lele.service.StateService;
+import net.lele.service.UserService;
 import net.lele.utils.UploadFileUtils;
 
 @Controller
@@ -42,22 +50,58 @@ public class UserController {
 	Interest_productService ips;
 	@Autowired
 	AskService askService;
+	@Autowired
+	StateService stateService;
+	@Autowired
+	CityService cityService;
+	@Autowired
+	UserService userService;
+	@Autowired
+	UserRepository userRepository;
 
 	private String uploadPath = "D:/Carrot/Carrot/Smarket/src/main/resources/static/images/";
 
-	@RequestMapping(value="user/location")
+	@RequestMapping(value = "user/location")
 	public String location(Model model) {
+		/*
+		 * String userId =
+		 * SecurityContextHolder.getContext().getAuthentication().getName();
+		 */
 		model.addAttribute("category", categoryService.findAll());
+		model.addAttribute("state", stateService.findAll());
 		return "user/location";
 	}
-	
-	@RequestMapping(value = "shop/location", method = RequestMethod.POST)
-	public String location(Model model, BindingResult bindingResult) {
+
+
+	@RequestMapping("user/loca")
+	@ResponseBody
+	public List<City> loca(@RequestParam int state, Model model) {
+		return cityService.findByStateId(state);
+	}
+
+	@RequestMapping(value = "user/location", method = RequestMethod.POST)
+	public String location(HttpServletRequest request, Model model) {
+		String userId = SecurityContextHolder.getContext().getAuthentication().getName();
+		User u = userService.findByUserId(userId);
+		
+		String s = request.getParameter("state");
+		int state = Integer.parseInt(s);
+		State ss = new State();
+		ss.setId(state);
+		
+		String c = request.getParameter("city");
+		int city = Integer.parseInt(c);
+		City cc = new City();
+		cc.setId(city);
+		
+		u.setState(ss);
+		u.setCity(cc);
+		userRepository.save(u);
 		
 		return "redirect:/shop/index";
 	}
-	
-	@RequestMapping(value="user/interest")
+
+	@RequestMapping(value = "user/interest")
 	public String interest(Model model) {
 		String userId = SecurityContextHolder.getContext().getAuthentication().getName();
 		model.addAttribute("count", ips.countByUserUserId(userId));
@@ -66,7 +110,7 @@ public class UserController {
 		model.addAttribute("product_image", product_imageService.findByProductidgroup());
 		return "user/interest";
 	}
-	
+
 	@RequestMapping(value = "user/write")
 	public String write(Model model) throws Exception {
 		model.addAttribute("category", categoryService.findAll());
@@ -102,41 +146,39 @@ public class UserController {
 
 		List<MultipartFile> fileList = mtfRequest.getFiles("files");
 
-		String imgUploadPath = uploadPath; 
-		
+		String imgUploadPath = uploadPath;
+
 		for (MultipartFile fi : fileList) {
 			String sourceFileName = fi.getOriginalFilename();
 			String fileName = null;
-			String ymdPath = UploadFileUtils.calcPath(imgUploadPath); 
+			String ymdPath = UploadFileUtils.calcPath(imgUploadPath);
 			fileName = UploadFileUtils.fileUpload(imgUploadPath, sourceFileName, fi.getBytes(), ymdPath);
-		
-			file.setFilename(fileName); 
+
+			file.setFilename(fileName);
 			file.setProductid(p.getId());
-			file.setFileOriName(sourceFileName); 
+			file.setFileOriName(sourceFileName);
 			file.setFileurl(imgUploadPath);
-			
+
 			product_imageService.save(file);
 		}
 
 		/*
-		 * String sourceFileName = files.getOriginalFilename(); 
-		 * String imgUploadPath = uploadPath; 
-		 * String ymdPath = UploadFileUtils.calcPath(imgUploadPath); 
-		 * String fileName = null;
+		 * String sourceFileName = files.getOriginalFilename(); String imgUploadPath =
+		 * uploadPath; String ymdPath = UploadFileUtils.calcPath(imgUploadPath); String
+		 * fileName = null;
 		 * 
-		 * fileName = UploadFileUtils.fileUpload(imgUploadPath, sourceFileName, files.getBytes(), ymdPath);
+		 * fileName = UploadFileUtils.fileUpload(imgUploadPath, sourceFileName,
+		 * files.getBytes(), ymdPath);
 		 * 
-		 * file.setFilename(fileName); 
-		 * file.setProductid(p.getId());
-		 * file.setFileOriName(sourceFileName); 
-		 * file.setFileurl(imgUploadPath);
+		 * file.setFilename(fileName); file.setProductid(p.getId());
+		 * file.setFileOriName(sourceFileName); file.setFileurl(imgUploadPath);
 		 * 
 		 * product_imageService.save(file);
 		 */
 
 		return "redirect:/shop/index";
 	}
-	
+
 	@RequestMapping("user/asklist")
 	public String asklist(Model model) throws Exception {
 		model.addAttribute("category", categoryService.findAll());
@@ -145,21 +187,21 @@ public class UserController {
 		model.addAttribute("acnt", askService.countByUserUserId(userId));
 		return "user/asklist";
 	}
-	
+
 	@RequestMapping("user/ask")
 	public String ask(Model model, Ask ask) throws Exception {
 		model.addAttribute("category", categoryService.findAll());
 		return "user/ask";
 	}
-	
+
 	@RequestMapping(value = "user/ask", method = RequestMethod.POST)
 	public String ask(Model model, Ask ask, BindingResult bindingResult) throws Exception {
 		askService.save(ask);
 		return "redirect:/user/asklist";
 	}
-	
+
 	@RequestMapping("user/askdetail/{id}")
-	public String askdetail(@PathVariable("id") int id, Model model) throws Exception{
+	public String askdetail(@PathVariable("id") int id, Model model) throws Exception {
 		model.addAttribute("category", categoryService.findAll());
 		model.addAttribute("ask", askService.findById(id));
 		model.addAttribute("idd", id);

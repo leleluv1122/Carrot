@@ -1,5 +1,7 @@
 package net.lele.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,17 +13,21 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import net.lele.domain.City;
 import net.lele.domain.Interest_product;
 import net.lele.domain.Search;
 import net.lele.model.UserRegistrationModel;
 import net.lele.service.CategoryService;
+import net.lele.service.CityService;
 import net.lele.service.CommentService;
 import net.lele.service.Interest_productService;
 import net.lele.service.NoticeService;
 import net.lele.service.ProductService;
 import net.lele.service.Product_imageService;
 import net.lele.service.SearchService;
+import net.lele.service.StateService;
 import net.lele.service.UserService;
 import net.lele.utils.WebCrawler;
 
@@ -43,6 +49,10 @@ public class ShopController {
 	NoticeService noticeService;
 	@Autowired
 	CommentService commentService;
+	@Autowired
+	StateService stateService;
+	@Autowired
+	CityService cityService;
 
 	@RequestMapping({ "/", "shop/index" })
 	public String index(Model model) throws Exception {
@@ -55,6 +65,8 @@ public class ShopController {
 
 		model.addAttribute("cnt", ips.countByproductidgroup());
 		model.addAttribute("commentcnt", commentService.countByProductGroup());
+
+		/* model.addAttribute("loca", usl.findAll()); */
 
 		/* List<Object[]> results = ips.countByproductidgroup(); */
 		/*
@@ -75,6 +87,10 @@ public class ShopController {
 	@RequestMapping(value = "shop/register", method = RequestMethod.GET)
 	public String register(UserRegistrationModel userModel, Model model) throws Exception {
 		model.addAttribute("category", categoryService.findAll());
+		/*
+		 * model.addAttribute("state", stateService.findAll());
+		 * model.addAttribute("city", cityService.findAll());
+		 */
 		return "shop/register";
 	}
 
@@ -101,6 +117,7 @@ public class ShopController {
 		model.addAttribute("cnt", ips.countByproductidgroup());
 		model.addAttribute("commentcnt", commentService.countByProductGroup());
 		model.addAttribute("product_image", product_imageService.findByProductidgroup());
+		/* model.addAttribute("loca", usl.findAll()); */
 		return "shop/category";
 	}
 
@@ -129,6 +146,7 @@ public class ShopController {
 		model.addAttribute("product_image", product_imageService.findByProductidgroup());
 		model.addAttribute("commentcnt", commentService.countByProductGroup());
 		model.addAttribute("cnt", ips.countByproductidgroup());
+		/* model.addAttribute("loca", usl.findAll()); */
 		return "shop/users";
 	}
 
@@ -151,8 +169,8 @@ public class ShopController {
 		ips.save(i);
 		return "redirect:/shop/product/{id}";
 	}
-	
-	@RequestMapping(value="shop/pdelete/{id}")
+
+	@RequestMapping(value = "shop/pdelete/{id}")
 	public String pdelete(@PathVariable("id") int id, Model model) {
 		productService.deleteById(id);
 		return "redirect:/shop/index";
@@ -180,5 +198,41 @@ public class ShopController {
 		model.addAttribute("notice", noticeService.findById(id));
 		model.addAttribute("category", categoryService.findAll());
 		return "shop/noticedetail";
+	}
+
+	@RequestMapping("shop/hotproduct")
+	public String hotproduct(Model model) {
+		model.addAttribute("category", categoryService.findAll());
+		model.addAttribute("state", stateService.findAll());
+		model.addAttribute("product", productService.findByOrderByClickDesc());
+		model.addAttribute("product_image", product_imageService.findByProductidgroup());
+		model.addAttribute("cnt", ips.countByproductidgroup());
+		model.addAttribute("commentcnt", commentService.countByProductGroup());
+		model.addAttribute("scnt", searchService.Searchcount());
+		/* model.addAttribute("loca", usl.findAll()); */
+
+		model.addAttribute("state", stateService.findAll());
+
+		return "shop/hotproduct";
+	}
+
+	@RequestMapping("shop/region/{state}")
+	public String region(@PathVariable("state") String state, Model model) {
+		model.addAttribute("category", categoryService.findAll());
+		model.addAttribute("state", stateService.findAll());
+
+		return "shop/region";
+	}
+	
+	@RequestMapping("shop/loca")
+	@ResponseBody
+	public List<City> loca(@RequestParam int state, Model model) {
+		return cityService.findByStateId(state);
+	}
+
+	@RequestMapping("shop/region/{state}/{city}")
+	public String region(@PathVariable("state") String state, @PathVariable("city") String city, Model model) {
+
+		return "shop/region";
 	}
 }
