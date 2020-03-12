@@ -1,2 +1,6 @@
-# Carrot
-뭐라도 하겠지 당근싫다 딸기
+﻿# Strawberry Market
+ > a used market platform
+
+## Installation
+
+STS 3 & MySQL & JSP & JPA & BootStrap
