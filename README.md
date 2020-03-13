@@ -1,6 +1,6 @@
 ﻿# Strawberry Market
- > a used market platform
+ > a used market platform (중고거래 플랫폼)
 
 ## Installation
 
-STS 3 & MySQL & JSP & JPA & BootStrap
+STS3 . MySQL . JSP . JPA
