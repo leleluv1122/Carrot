@@ -67,6 +67,14 @@ public class ProductService {
 		return productRepository.findByCategoryIdOrderByIdDesc(id);
 	}
 	
+	public List<Product> findByUserStateName(String name){
+		return productRepository.findByUserStateName(name);
+	}
+	
+	public List<Product> findByUserCityName(String name){
+		return productRepository.findByUserCityName(name);
+	}
+	
 	@Transactional
 	public int save(Product product) {
 		Product p = new Product();

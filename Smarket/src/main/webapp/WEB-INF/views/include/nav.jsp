@@ -29,20 +29,21 @@
 <body>
 	<div class="container">
 		<nav class="navbar navbar-expand-lg navbar-light">
-			<a class="navbar-brand"
-				style="color: pink; font-family: 'Poor Story', cursive; font-size: 5em; margin-right: 40px;"
+			<a href="${R}shop/index"><img src="/images/strawberry.jpg" align="middle"
+				style="height: 60px; weight:60px;"></a><a class="navbar-brand"
+				style="color: pink; font-family: 'Poor Story', cursive; font-size: 4em; margin-right: 20px;"
 				href="${R}shop/index">딸기마켓</a>
-			<button class="navbar-toggler" type="button" data-toggle="collapse"
+			<!-- <button class="navbar-toggler" type="button" data-toggle="collapse"
 				data-target="#navbarNav" aria-controls="navbarNav"
 				aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
-			</button>
+			</button> -->
 			<form action="/shop/search" class="form-inline my-2 my-lg-0">
 				<input class="form-control mr-sm-2" type="search" name="word"
 					placeholder="Search" aria-label="Search"
 					style="margin-top: 10px; width: 250px;">
 				<button class="btn btn-outline-success my-2 my-sm-0"
-					style="margin-top: 10px;" type="submit">
+					style="margin-top: 15px;" type="submit">
 					<span class="glyphicon glyphicon-search"
 						style="margin-top: 10px; margin: 2px;"></span>
 				</button>
@@ -50,30 +51,30 @@
 			<div class="collapse navbar-collapse" id="navbarNav">
 				<ul class="navbar-nav mr-auto">
 					<sec:authorize access="not authenticated">
-						<li class="nav-item" style="margin-top: 10px;"><a
+						<li class="nav-item" style="margin-top: 13px;"><a
 							href="/shop/login" class="nav-item"
 							style="font-family: 'Poor Story', cursive; font-size: 13px; color: black; margin: 5px;">로그인</a></li>
-						<li class="nav-item" style="margin-top: 10px;"><a
+						<li class="nav-item" style="margin-top: 13px;"><a
 							href="/shop/register" class="nav-item"
 							style="font-family: 'Poor Story', cursive; color: black; font-size: 13px; margin: 5px;">회원가입</a></li>
 					</sec:authorize>
 					<sec:authorize access="authenticated">
 						<sec:authentication property="user.id" var="currentid" />
-						<li class="nav-item" style="margin-top: 10px;"><a
+						<li class="nav-item" style="margin-top: 13px;"><a
 							href="/shop/users/${currentid}" class="nav-item"
 							style="font-family: 'Poor Story', cursive; color: black; font-size: 13px;"><span
 								class="glyphicon glyphicon-user" style="margin-right: 3px;"></span>내정보</a></li>
-						<li class="nav-item" style="margin-top: 10px;"><a
+						<li class="nav-item" style="margin-top: 13px;"><a
 							class="nav-item"
 							style="font-family: 'Poor Story', cursive; color: black; font-size: 13px; margin: 3px;"
 							href="${R}user/logout_processing">로그아웃</a></li>
-						<li class="nav-item" style="margin-top: 10px;"><a
+						<li class="nav-item" style="margin-top: 13px;"><a
 							href="/user/interest" class="nav-item"
 							style="font-family: 'Poor Story', cursive; color: black; font-size: 13px; margin: 3px; color: black;">관심상품</a></li>
-						<li class="nav-item" style="margin-top: 10px;"><a
+						<li class="nav-item" style="margin-top: 13px;"><a
 							href="/user/write" class="nav-item"
 							style="font-family: 'Poor Story', cursive; color: black; font-size: 13px; margin: 3px; color: black;">글쓰기</a></li>
-						<li class="nav-item" style="margin-top: 10px;"><a
+						<li class="nav-item" style="margin-top: 13px;"><a
 							href="/user/location" class="nav-item"
 							style="font-family: 'Poor Story', cursive; color: black; font-size: 13px; margin: 3px; color: black;">동네인증</a></li>
 					</sec:authorize>

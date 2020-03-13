@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import net.lele.domain.Ask;
 import net.lele.domain.Category;
 import net.lele.domain.City;
+import net.lele.domain.Message;
 import net.lele.domain.Product;
 import net.lele.domain.Product_image;
 import net.lele.domain.State;
@@ -30,6 +31,7 @@ import net.lele.service.AskService;
 import net.lele.service.CategoryService;
 import net.lele.service.CityService;
 import net.lele.service.Interest_productService;
+import net.lele.service.MessageService;
 import net.lele.service.ProductService;
 import net.lele.service.Product_imageService;
 import net.lele.service.StateService;
@@ -58,6 +60,8 @@ public class UserController {
 	UserService userService;
 	@Autowired
 	UserRepository userRepository;
+	@Autowired
+	MessageService messageService;
 
 	private String uploadPath = "D:/Carrot/Carrot/Smarket/src/main/resources/static/images/";
 
@@ -72,7 +76,6 @@ public class UserController {
 		return "user/location";
 	}
 
-
 	@RequestMapping("user/loca")
 	@ResponseBody
 	public List<City> loca(@RequestParam int state, Model model) {
@@ -83,21 +86,21 @@ public class UserController {
 	public String location(HttpServletRequest request, Model model) {
 		String userId = SecurityContextHolder.getContext().getAuthentication().getName();
 		User u = userService.findByUserId(userId);
-		
+
 		String s = request.getParameter("state");
 		int state = Integer.parseInt(s);
 		State ss = new State();
 		ss.setId(state);
-		
+
 		String c = request.getParameter("city");
 		int city = Integer.parseInt(c);
 		City cc = new City();
 		cc.setId(city);
-		
+
 		u.setState(ss);
 		u.setCity(cc);
 		userRepository.save(u);
-		
+
 		return "redirect:/shop/index";
 	}
 
@@ -206,6 +209,29 @@ public class UserController {
 		model.addAttribute("ask", askService.findById(id));
 		model.addAttribute("idd", id);
 		return "user/askdetail";
+	}
+
+	@RequestMapping("user/message/{nickname}")
+	public String message(@PathVariable("nickname") String nickname, Message message, Model model) throws Exception {
+		model.addAttribute("category", categoryService.findAll());
+		model.addAttribute("receiveU", userService.findByNickname(nickname));
+		return "user/message";
+	}
+
+	@RequestMapping(value = "user/message/{nickname}", method = RequestMethod.POST)
+	public void message(@PathVariable("nickname") String nickname, Model model, Message message) {
+		String userId = SecurityContextHolder.getContext().getAuthentication().getName();
+		User sendU = userService.findByUserId(userId);
+		User receU = userService.findByNickname(nickname);
+		
+		Message m = new Message();
+		m.setSend(sendU);
+		m.setReceive(receU);
+		m.setTitle(message.getTitle());
+		m.setDetail(message.getDetail());
+		
+		messageService.save(m);
+		/* return "redirect:/shop/index"; */
 	}
 
 }

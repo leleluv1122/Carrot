@@ -22,6 +22,10 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 	
 	List<Product> findByTitleContains(String title);
 	
+	List<Product> findByUserStateName(String name);
+	
+	List<Product> findByUserCityName(String name);
+	
 	int countByUserId(int id);
 	
 	void deleteById(int id);

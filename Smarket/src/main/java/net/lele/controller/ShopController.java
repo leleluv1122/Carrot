@@ -219,20 +219,36 @@ public class ShopController {
 	@RequestMapping("shop/region/{state}")
 	public String region(@PathVariable("state") String state, Model model) {
 		model.addAttribute("category", categoryService.findAll());
-		model.addAttribute("state", stateService.findAll());
-
+		model.addAttribute("s", stateService.findAll());
+		model.addAttribute("product", productService.findByUserStateName(state));
+		model.addAttribute("product_image", product_imageService.findByProductidgroup());
+		model.addAttribute("cnt", ips.countByproductidgroup());
+		model.addAttribute("commentcnt", commentService.countByProductGroup());
+		model.addAttribute("scnt", searchService.Searchcount());
+		model.addAttribute("city", cityService.findByStateName(state));
+		model.addAttribute("stst", state);
 		return "shop/region";
 	}
 	
 	@RequestMapping("shop/loca")
 	@ResponseBody
 	public List<City> loca(@RequestParam int state, Model model) {
+		
 		return cityService.findByStateId(state);
 	}
 
 	@RequestMapping("shop/region/{state}/{city}")
 	public String region(@PathVariable("state") String state, @PathVariable("city") String city, Model model) {
-
+		model.addAttribute("category", categoryService.findAll());
+		model.addAttribute("s", stateService.findAll());
+		model.addAttribute("product", productService.findByUserCityName(city));
+		model.addAttribute("product_image", product_imageService.findByProductidgroup());
+		model.addAttribute("cnt", ips.countByproductidgroup());
+		model.addAttribute("commentcnt", commentService.countByProductGroup());
+		model.addAttribute("scnt", searchService.Searchcount());
+		model.addAttribute("city", cityService.findByStateName(state));
+		model.addAttribute("stst", state);
+		model.addAttribute("ctct",city);
 		return "shop/region";
 	}
 }

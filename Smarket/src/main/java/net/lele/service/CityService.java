@@ -20,4 +20,8 @@ public class CityService {
 	public List<City> findByStateId(int id){
 		return cityRepository.findByStateId(id);
 	}
+	
+	public List<City> findByStateName(String name){
+		return cityRepository.findByStateName(name);
+	}
 }

@@ -161,7 +161,7 @@ p .bb {
 								<span
 									style="font-size: 17px; color: #585858; font-weight: bold;"><b><c:choose>
 											<c:when test="${fn:length(p.title) gt 13}">
-												<c:out value="${fn:substring(p.title, 0, 12)}">...
+												<c:out value="${fn:substring(p.title, 0, 12)}...">
         									</c:out>
 											</c:when>
 											<c:otherwise>

@@ -100,8 +100,8 @@ div .aa {
 		<br /> <br />
 		<form name="url">
 			<select id="state" name="url" onchange="moveurl(this.value);"
-				style="margin-left:auto; margin-right: 20px;" class="form-control w200"
-				required="required">
+				style="margin-left: auto; margin-right: 20px;"
+				class="form-control w200" required="required">
 				<option value="">지역을 골라주세요</option>
 				<c:forEach var="state" items="${state}">
 					<option value="/shop/region/${state.name}">${state.name}</option>
@@ -112,46 +112,15 @@ div .aa {
 					location.href = url;
 				}
 			</script>
-			<select id="city" name="city" style="margin-top:3px;float: right; margin-right: 20px;" class="form-control w200">
+			<select id="city" name="city"
+				style="margin-top: 3px; float: right; margin-right: 20px;"
+				class="form-control w200">
 				<option value="">동네를 골라주세요</option>
 			</select>
 		</form>
 
 
 		<br />
-		<script>
-			$(
-					function() {
-						$('#state')
-								.change(
-										function() {
-											var state = $(this).serialize();
-											$
-													.ajax({
-														url : '/shop/loca',
-														type : 'post',
-														data : state,
-														success : function(data) {
-															var searchArr = $(
-																	'#city')
-																	.find(
-																			"option");
-															for ( var i in data) {
-																var $id = data[i].id;
-																var $name = data[i].name;
-
-																searchArr += "<option value=" +$id + ">"
-																		+ $name
-																		+ "</option>";
-
-															}
-															document
-																	.getElementById("city").innerHTML = searchArr;
-														}
-													});
-										});
-					})
-		</script>
 
 		<c:forEach var="p" items="${product}">
 			<c:forEach var="pi" items="${product_image}">
@@ -163,7 +132,7 @@ div .aa {
 						<div class="name">
 							<span style="font-size: 17px; color: #585858; font-weight: bold;"><b><c:choose>
 										<c:when test="${fn:length(p.title) gt 13}">
-											<c:out value="${fn:substring(p.title, 0, 12)}">...
+											<c:out value="${fn:substring(p.title, 0, 12)}...">
         									</c:out>
 										</c:when>
 										<c:otherwise>

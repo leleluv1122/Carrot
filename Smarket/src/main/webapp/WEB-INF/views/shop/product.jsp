@@ -192,10 +192,15 @@ div .z {
 			</sec:authorize>
 			<a href="/shop/category/${p.category.id}" class="btn btn-dark">목록으로</a>
 			<sec:authorize access="authenticated">
-				<a href="#" style="margin: 10;" class="btn btn-dark"> <span
-					class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
-					채팅보내기
-				</a>
+				<c:if test="${p.user.id!=currentid}">
+					<a onclick="window.open('/user/message/${p.user.nickname}','쪽지보내기','width=430,height=500,location=no,status=no,scrollbars=yes');"
+						style="margin: 10;" class="btn btn-dark"> <span
+						class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+						쪽지보내기
+					</a>
+				</c:if>
+
+
 
 				<c:if test="${p.user.id==currentid}">
 					<a href="/shop/pdelete/${p.id}"
@@ -205,7 +210,7 @@ div .z {
 
 
 			</sec:authorize>
-			
+
 
 			<!--  댓글  -->
 			<div class="container">
