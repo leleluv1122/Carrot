@@ -1,5 +1,7 @@
 package net.lele.domain;
 
+import java.sql.Timestamp;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -26,4 +28,6 @@ public class Message {
 	
 	String title;
 	String detail;
+	
+	Timestamp writedate;
 }

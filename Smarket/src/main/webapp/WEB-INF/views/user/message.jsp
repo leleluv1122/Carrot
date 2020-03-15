@@ -63,7 +63,7 @@ body {
 				</div>
 				<div class="form-group">
 					<button type="submit" class="btn btn-dark"
-						onclick="if(confirm('쪽지를 보내시겠습니까?')){window.close(); return true;}">보내기</button>
+						onclick="if(confirm('쪽지를 보내시겠습니까?')){window.close();window.opener.location.href='/user/msg/send';}">보내기</button>
 					<a href="#" class="btn btn-default" onclick="window.close();">취소</a>
 				</div>
 			</form:form>

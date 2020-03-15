@@ -66,7 +66,7 @@ public class UserController {
 	private String uploadPath = "D:/Carrot/Carrot/Smarket/src/main/resources/static/images/";
 
 	@RequestMapping(value = "user/location")
-	public String location(Model model) {
+	public String location(Model model) throws Exception {
 		/*
 		 * String userId =
 		 * SecurityContextHolder.getContext().getAuthentication().getName();
@@ -83,7 +83,7 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "user/location", method = RequestMethod.POST)
-	public String location(HttpServletRequest request, Model model) {
+	public String location(HttpServletRequest request, Model model) throws Exception {
 		String userId = SecurityContextHolder.getContext().getAuthentication().getName();
 		User u = userService.findByUserId(userId);
 
@@ -105,7 +105,7 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "user/interest")
-	public String interest(Model model) {
+	public String interest(Model model) throws Exception {
 		String userId = SecurityContextHolder.getContext().getAuthentication().getName();
 		model.addAttribute("count", ips.countByUserUserId(userId));
 		model.addAttribute("category", categoryService.findAll());
@@ -219,19 +219,54 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "user/message/{nickname}", method = RequestMethod.POST)
-	public void message(@PathVariable("nickname") String nickname, Model model, Message message) {
+	public String message(@PathVariable("nickname") String nickname, Model model, Message message) throws Exception {
 		String userId = SecurityContextHolder.getContext().getAuthentication().getName();
 		User sendU = userService.findByUserId(userId);
 		User receU = userService.findByNickname(nickname);
-		
+
 		Message m = new Message();
 		m.setSend(sendU);
 		m.setReceive(receU);
 		m.setTitle(message.getTitle());
 		m.setDetail(message.getDetail());
-		
+
 		messageService.save(m);
-		/* return "redirect:/shop/index"; */
+		return "redirect:/user/msg/send";
+	}
+
+	@RequestMapping("user/msg/send")
+	public String msgsend(Model model) throws Exception {
+		model.addAttribute("category", categoryService.findAll());
+		String userId = SecurityContextHolder.getContext().getAuthentication().getName();
+		model.addAttribute("send", messageService.findBySendUserIdOrderByIdDesc(userId));
+		model.addAttribute("cnt", messageService.countBySendUserId(userId));
+		return "user/msg/send";
+	}
+	
+	@RequestMapping("user/msg/receive")
+	public String msgreceive(Model model) {
+		model.addAttribute("category", categoryService.findAll());
+		String userId = SecurityContextHolder.getContext().getAuthentication().getName();
+		model.addAttribute("receive", messageService.findByReceiveUserIdOrderByIdDesc(userId));
+		model.addAttribute("cnt", messageService.countByReceiveUserId(userId));
+		
+		return "user/msg/receive";
+	}
+	
+	@RequestMapping("user/msg/smsg/{id}")
+	public String sendmsg(@PathVariable("id") int id, Model model) throws Exception {
+		model.addAttribute("category", categoryService.findAll());
+		model.addAttribute("m", messageService.findById(id));
+		
+		return "user/msg/smsg";
+	}
+	
+	@RequestMapping("user/msg/rmsg/{id}")
+	public String recmsg(@PathVariable("id") int id, Model model) throws Exception {
+		model.addAttribute("category", categoryService.findAll());
+		model.addAttribute("m", messageService.findById(id));
+		
+		return "user/msg/rmsg";
 	}
 
 }
