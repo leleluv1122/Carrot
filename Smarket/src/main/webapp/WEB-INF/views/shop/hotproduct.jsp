@@ -49,14 +49,7 @@
 	margin: 10px;
 }
 
-ul.aa li {
-	list-style-type: none;
-	float: left;
-	margin-left: 20px;
-	display: inline-block;
-}
-
-div .abcd {
+.abcd {
 	height: 250px;
 	width: 180px;
 	float: left;
@@ -91,6 +84,16 @@ div .aa {
 	height: 700px;
 }
 </style>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script>
+	$(document).ready(function() {
+		$(".abcd").mouseover(function() {
+		    $(this).css("box-shadow", "5px 5px 5px #555");
+		 }).mouseleave(function(){
+		   $(this).css("box-shadow", "0px 0px 0px #555");
+		});
+	});
+</script>
 </head>
 <body>
 	<%@ include file="../include/nav.jsp"%>
@@ -133,7 +136,7 @@ div .aa {
 							<span style="font-size: 17px; color: #585858; font-weight: bold;"><b><c:choose>
 										<c:when test="${fn:length(p.title) gt 13}">
 											<c:out value="${fn:substring(p.title, 0, 12)}...">
-        									</c:out>
+											</c:out>
 										</c:when>
 										<c:otherwise>
 											<c:out value="${p.title}">

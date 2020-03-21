@@ -1,6 +1,15 @@
 body {
 	font-family: 'Poor Story', cursive;
 }
+footer {
+	left: 0px;
+	bottom: 0px;
+	height: 100px;
+	width: 100%;
+	margin:auto;
+	color: black;
+}
+
 
 ul li {
 	list-style-type: none;

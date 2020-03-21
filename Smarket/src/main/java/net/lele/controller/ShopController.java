@@ -114,6 +114,8 @@ public class ShopController {
 		 * model.addAttribute("pcnt",
 		 * ips.countByProductId(productService.findById(id)));
 		 */
+		/* model.addAttribute("test", commentService.countByProductgroup()); */
+		
 		model.addAttribute("cnt", ips.countByproductidgroup());
 		model.addAttribute("commentcnt", commentService.countByProductGroup());
 		model.addAttribute("product_image", product_imageService.findByProductidgroup());

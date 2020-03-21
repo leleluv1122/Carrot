@@ -23,6 +23,11 @@ public class CommentService {
 		return commentRepository.countByProductGroup();
 	}
 	
+	/*
+	 * public List<Map<Integer, Integer>> countByProductgroup(){ return
+	 * commentRepository.countByProductgroup(); }
+	 */
+	
 	public List<Comment> findByProductId(int pid){
 		return commentRepository.findByProductId(pid);
 	}
