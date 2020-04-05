@@ -100,9 +100,13 @@ h1 {
 		<div class="aa">
 
 			<c:if test="${count ==0 }">
-				<span style="font-size:20px;margin:50;margin-left:100px;">관심상품이 없습니다</span>
-				<br /><br />
-				<a href="/shop/index" style="font-size:20px;margin:50;margin-left:100px;">상품 목록으로 가기</a>
+				<span style="font-size: 20px; margin: 50; margin-left: 100px;">관심상품이
+					없습니다</span>
+				<br />
+				<br />
+				<a href="/shop/index"
+					style="font-size: 20px; margin: 50; margin-left: 100px;">상품
+					목록으로 가기</a>
 			</c:if>
 			<c:if test="${count != 0}">
 				<c:forEach var="i" items="${interest}">

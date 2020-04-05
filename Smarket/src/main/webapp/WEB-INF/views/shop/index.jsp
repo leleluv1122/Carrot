@@ -112,13 +112,23 @@ p .bb {
 .itemm {
 	display: none;
 }
+
+.mimg {
+	weight: 75%;
+	height: 75%;
+}
+
+.maindv {
+	width: 1081px;
+	height: 100%;
+}
 </style>
 <body>
 	<%@ include file="../include/nav.jsp"%>
 	<br />
 	<div class="container">
 		<hr />
-		<span class="child" style=""><b>인기검색어</b></span><br />
+		<!-- <span class="child" style=""><b>인기검색어</b></span><br /> -->
 		<!-- <button type="button" class="btn orderOpne_bnt" style="color: black;">
 			<span class="glyphicon glyphicon-chevron-down" style="margin: 4px;"></span>
 		</button>
@@ -139,8 +149,16 @@ p .bb {
 					$(".orderOpne_bnt").slideDown();
 				});
 			</script> -->
+		<div class="maindv">
+			<img src="/images/main.JPG" class="mimg">
+			<c:forEach var="s" items="${scnt}" begin="0" end="6">
+				<a href="/shop/search?word=${s.name}"><span
+					style="font-size: 1.5em; position: absolute; top: 55%; left: 1000px;">${s.name}</span></a>
+				<br>
+			</c:forEach>
+		</div>
 		<div class="ba">
-			<c:forEach var="s" items="${scnt}">
+			<c:forEach var="s" items="${scnt}" begin="0" end="6">
 				<a class="child btn-default" href="/shop/search?word=${s.name}"
 					style="border: solid 0.5px grey; border-radius: 8px;"><span
 					style="margin-left: 15px; margin-right: 15px;">${s.name}</span></a>
@@ -162,7 +180,7 @@ p .bb {
 									style="font-size: 17px; color: #585858; font-weight: bold;"><b><c:choose>
 											<c:when test="${fn:length(p.title) gt 13}">
 												<c:out value="${fn:substring(p.title, 0, 12)}...">
-        									</c:out>
+												</c:out>
 											</c:when>
 											<c:otherwise>
 												<c:out value="${p.title}">
