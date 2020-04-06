@@ -30,6 +30,7 @@ import net.lele.repository.UserRepository;
 import net.lele.service.AskService;
 import net.lele.service.CategoryService;
 import net.lele.service.CityService;
+import net.lele.service.CommentService;
 import net.lele.service.Interest_productService;
 import net.lele.service.MessageService;
 import net.lele.service.ProductService;
@@ -62,6 +63,8 @@ public class UserController {
 	UserRepository userRepository;
 	@Autowired
 	MessageService messageService;
+	@Autowired
+	CommentService commentService;
 
 	private String uploadPath = "D:/Carrot/Carrot/Smarket/src/main/resources/static/images/";
 
@@ -111,6 +114,9 @@ public class UserController {
 		model.addAttribute("category", categoryService.findAll());
 		model.addAttribute("interest", ips.findByUserUserId(userId));
 		model.addAttribute("product_image", product_imageService.findByProductidgroup());
+		
+		model.addAttribute("cnt", ips.countByproductidgroup());
+		model.addAttribute("commentcnt", commentService.countByProductGroup());
 		return "user/interest";
 	}
 
@@ -242,30 +248,30 @@ public class UserController {
 		model.addAttribute("cnt", messageService.countBySendUserId(userId));
 		return "user/msg/send";
 	}
-	
+
 	@RequestMapping("user/msg/receive")
 	public String msgreceive(Model model) {
 		model.addAttribute("category", categoryService.findAll());
 		String userId = SecurityContextHolder.getContext().getAuthentication().getName();
 		model.addAttribute("receive", messageService.findByReceiveUserIdOrderByIdDesc(userId));
 		model.addAttribute("cnt", messageService.countByReceiveUserId(userId));
-		
+
 		return "user/msg/receive";
 	}
-	
+
 	@RequestMapping("user/msg/smsg/{id}")
 	public String sendmsg(@PathVariable("id") int id, Model model) throws Exception {
 		model.addAttribute("category", categoryService.findAll());
 		model.addAttribute("m", messageService.findById(id));
-		
+
 		return "user/msg/smsg";
 	}
-	
+
 	@RequestMapping("user/msg/rmsg/{id}")
 	public String recmsg(@PathVariable("id") int id, Model model) throws Exception {
 		model.addAttribute("category", categoryService.findAll());
 		model.addAttribute("m", messageService.findById(id));
-		
+
 		return "user/msg/rmsg";
 	}
 

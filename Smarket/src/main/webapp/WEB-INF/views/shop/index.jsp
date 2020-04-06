@@ -122,6 +122,13 @@ p .bb {
 	width: 1081px;
 	height: 100%;
 }
+
+.sunwi {
+	font-size: 2em;
+	position: absolute;
+	left: 980px;
+	color: gray;
+}
 </style>
 <body>
 	<%@ include file="../include/nav.jsp"%>
@@ -150,20 +157,33 @@ p .bb {
 				});
 			</script> -->
 		<div class="maindv">
-			<img src="/images/main.JPG" class="mimg">
-			<c:forEach var="s" items="${scnt}" begin="0" end="6">
-				<a href="/shop/search?word=${s.name}"><span
-					style="font-size: 1.5em; position: absolute; top: 55%; left: 1000px;">${s.name}</span></a>
+			<img src="/images/main.JPG" class="mimg"> <a
+				href="/shop/search?word=${scnt[0].name}"><span class="sunwi"
+				style="top: 55%;">1. ${scnt[0].name}  (${scnt[0].cnt})</span> </a>
+				<a href="/shop/search?word=${scnt[1].name}"><span class="sunwi"
+				style="top: 60%;">2. ${scnt[1].name}  (${scnt[1].cnt})</span></a> <a
+				href="/shop/search?word=${scnt[2].name}"><span class="sunwi"
+				style="top: 65%;">3. ${scnt[2].name}  (${scnt[2].cnt})</span></a> <a
+				href="/shop/search?word=${scnt[3].name}"><span class="sunwi"
+				style="top: 70%;">4. ${scnt[3].name}  (${scnt[3].cnt})</span></a> <a
+				href="/shop/search?word=${scnt[4].name}"><span class="sunwi"
+				style="top: 75%;">5. ${scnt[4].name}  (${scnt[4].cnt})</span></a> <a
+				href="/shop/search?word=${scnt[5].name}"><span class="sunwi"
+				style="top: 80%;">6. ${scnt[5].name}  (${scnt[5].cnt})</span></a> <a
+				href="/shop/search?word=${scnt[6].name}"><span class="sunwi"
+				style="top: 85%;">7. ${scnt[6].name}  (${scnt[6].cnt})</span></a>
+			<%-- <c:forEach var="s" items="${scnt}" begin="0" end="6">
+				
 				<br>
-			</c:forEach>
+			</c:forEach> --%>
 		</div>
-		<div class="ba">
+		<%-- <div class="ba">
 			<c:forEach var="s" items="${scnt}" begin="0" end="6">
 				<a class="child btn-default" href="/shop/search?word=${s.name}"
 					style="border: solid 0.5px grey; border-radius: 8px;"><span
 					style="margin-left: 15px; margin-right: 15px;">${s.name}</span></a>
 			</c:forEach>
-		</div>
+		</div> --%>
 		<!-- </div> -->
 		<hr />
 		<div class="aa">

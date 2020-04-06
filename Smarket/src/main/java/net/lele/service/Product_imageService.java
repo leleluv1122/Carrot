@@ -17,6 +17,10 @@ public class Product_imageService {
 		return product_imageRepository.findByProductid(id);
 	}
 	
+	public void deleteByProductid(int pid) {
+		product_imageRepository.deleteByProductid(pid);
+	}
+	
 	public int countByProductid(int id) {
 		return product_imageRepository.countByProductid(id);
 	}

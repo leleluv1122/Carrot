@@ -27,5 +27,8 @@ public interface Interest_productRepository extends JpaRepository<Interest_produ
 	@Query("SELECT new map(i.product.id as id, COUNT(i.product.id) as cnt) "
 			+ "FROM Interest_product i GROUP BY i.product")
 	List<Map<Integer, Integer>> countByproductidgroup();
-
+	
+	@Modifying
+	@Transactional
+	void deleteByProductId(int pid);
 }

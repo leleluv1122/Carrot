@@ -174,6 +174,9 @@ public class ShopController {
 
 	@RequestMapping(value = "shop/pdelete/{id}")
 	public String pdelete(@PathVariable("id") int id, Model model) {
+		ips.deleteByProductId(id);
+		commentService.deleteByProductId(id);
+		product_imageService.deleteByProductid(id);
 		productService.deleteById(id);
 		return "redirect:/shop/index";
 	}

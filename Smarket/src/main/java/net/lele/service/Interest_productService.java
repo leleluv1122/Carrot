@@ -14,6 +14,10 @@ public class Interest_productService {
 	@Autowired
 	Interest_productRepository ipr;
 
+	public void deleteByProductId(int pid) {
+		ipr.deleteByProductId(pid);
+	}
+	
 	public List<Interest_product> findAll() {
 		return ipr.findAll();
 	}

@@ -81,8 +81,8 @@ div .d {
 	border-bottom: 1px solid #e9ecef;
 }
 
-div .aa{
-	margin-bottom:100px;
+div .aa {
+	margin-bottom: 100px;
 }
 
 h1 {
@@ -95,8 +95,11 @@ h1 {
 	<%@ include file="../include/nav.jsp"%>
 	<br />
 	<div class="container">
-	
-		<h1><sec:authentication property="user.nickname" />님의 관심상품</h1>
+
+		<h1>
+			<sec:authentication property="user.nickname" />
+			님의 관심상품
+		</h1>
 		<div class="aa">
 
 			<c:if test="${count ==0 }">
@@ -134,10 +137,26 @@ h1 {
 												value="${i.product.price}" pattern="###,###,###" />원</b></span>
 								</div>
 
+
+
 								<div class="name">
-									<span style="margin-right: 10px;">관심 0</span> <span
-										style="margin-right: 10px;">댓글 0</span> <span>조회수
-										${i.product.click}</span>
+									<span>조회수 ${i.product.click}</span>
+									<c:forEach var="c" items="${cnt}">
+										<c:choose>
+											<c:when test="${i.product.id == c.id}">
+												<span style="margin-left: 2px;">관심: ${c.cnt}</span>
+											</c:when>
+											<c:when test="${c.id == null}">관심: 0</c:when>
+										</c:choose>
+									</c:forEach>
+									<c:forEach var="c" items="${commentcnt}">
+										<c:choose>
+											<c:when test="${i.product.id == c.id}">
+												<span style="margin-left: 2px;">댓글: ${c.cnt}</span>
+											</c:when>
+											<c:when test="${c.id == null}">댓글: 0</c:when>
+										</c:choose>
+									</c:forEach>
 								</div>
 							</div>
 

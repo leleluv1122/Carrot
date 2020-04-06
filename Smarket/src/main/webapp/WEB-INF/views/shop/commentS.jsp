@@ -36,7 +36,6 @@
 													+ value.content + '</p>';
 											a += '</div></div>';
 										});
-
 						$(".commentList").html(a);
 					}
 				});

@@ -11,6 +11,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>딸기마켓 제품보기</title>
+
 <!-- jQuery -->
 <script src="//code.jquery.com/jquery.min.js"></script>
 <link rel="stylesheet"
@@ -26,12 +27,16 @@
 <link
 	href="https://fonts.googleapis.com/css?family=Cute+Font|Poor+Story&display=swap&subset=korean"
 	rel="stylesheet">
-</head>
+<script src="/res/js/slidejquery.js"></script>
+<script src="/res/js/jquery.bxslider.min.js"></script>
+<link rel="stylesheet" href="/res/jquery.bxslider.min.css">
 <style>
-/* div .abcde {
-	height: 504px;
-	width: 729px;
-} */
+#gallery_wrap {
+	margin: 0 auto;
+	margin-top:10px;
+	width: 640px;
+}
+
 .imgg {
 	margin-left: auto;
 	margin-right: auto;
@@ -107,14 +112,29 @@ div .z {
 	border-radius: 8px;
 }
 </style>
+<script>
+	$(function() {
+		$('.slide_gallery').bxSlider({
+			auto : true,
+			autoControls : true,
+			stopAutoOnClick : true,
+			pager : true,
+			controls: true
+		});
+	});
+</script>
+</head>
 <body>
 	<%@ include file="../include/nav.jsp"%>
-
 	<div class="container">
-		<c:forEach var="pi" items="${pi}">
-			<img src="/images/${pi.filename}" class="imgg">
-		</c:forEach>
-
+		<div id="gallery_wrap">
+			<ul class="slide_gallery">
+				<c:forEach var="pi" items="${pi}">
+					<li><img src="/images/${pi.filename}" class="imgg"></li>
+				</c:forEach>
+			</ul>
+		</div>
+		
 		<div class="ab" onclick="location.href='/shop/users/${p.user.id}'">
 			<label style="margin-left: 80px;"><img
 				src="/images/blank-profile-picture-973460_1280.png" class="noimg"></label>
@@ -250,10 +270,7 @@ div .z {
 		</div>
 		<br /> <br />
 		<hr />
-
-
 	</div>
-
 	<%@ include file="commentS.jsp"%>
 	<%@ include file="../include/bottom.jsp"%>
 </body>
