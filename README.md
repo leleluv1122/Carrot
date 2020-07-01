@@ -1,10 +1,13 @@
 ﻿# 🍓 Strawberry Market
+***
 
  🙋🏻‍♂️💸 Strawberry Market은 중고거래 플랫폼입니다.  
  💸🙋🏻 Strawberry Market은 개인프로잭트로 진행되었으며, 사용한 기술은 아래와 같습니다.  
-
+  
+  
 
 # 👩🏻‍💻 Front-end
+***
 
 ## 개발언어
  JAVASCRIPT, HTML, CSS
@@ -14,9 +17,11 @@
 
 ## 사용 API
 다음 주소 검색, 다음 지도
-
+  
+  
 
 # 👩🏻‍💻 Back-end
+***
 
 ## 개발언어
  JAVA, JSP
@@ -29,10 +34,12 @@
 
 ## 기타사용
  JPA, Spring Security
-
+  
+  
 
 
 # 💡 화면구성
+***
 
 ## 메인
   ![main page1](/assets/첫페이지.jpg)
